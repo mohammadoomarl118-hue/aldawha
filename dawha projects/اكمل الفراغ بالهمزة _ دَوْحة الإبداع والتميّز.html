@@ -1,0 +1,2477 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لعبة اكمل الفراغ بالهمزة | مدرسة دَوْحة الإبداع والتميّز</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root { --maroon:#7a1f2b; --maroon-dark:#4f1019; --gold:#c9a24a; --gold-light:#f1dfae; --cream:#fbf6ec; --ink:#2b1d1f; --muted:#6d5b5e; --ok:#2f8f5b; --bad:#b3261e; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; font-family:"Cairo","Segoe UI",Tahoma,sans-serif; color:var(--ink); line-height:1.8; background:var(--cream); overflow-x:hidden; }
+  .bg-leaves { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .leaf { position:absolute; bottom:-60px; width:26px; height:40px; opacity:.22; background:linear-gradient(135deg,var(--gold),#b8792a); border-radius:0 70% 0 70%; animation:rise linear infinite; }
+  @keyframes rise { from { transform:translateY(0) rotate(0); } to { transform:translateY(-120vh) rotate(360deg); } }
+  .wrap { position:relative; z-index:1; }
+  header.top { background:var(--maroon); color:var(--gold-light); text-align:center; padding:1.4rem 1rem 1rem; }
+  .logo { width:90px; height:90px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; background:var(--cream); animation:glow 3s ease-in-out infinite, bob 4s ease-in-out infinite; }
+  @keyframes glow { 50% { box-shadow:0 0 0 10px rgba(201,162,74,.18); } }
+  @keyframes bob { 50% { transform:translateY(-4px); } }
+  header.top h1 { font-family:"Aref Ruqaa",serif; font-size:2.1rem; margin:.4rem 0 0; }
+  header.top p { margin:0; opacity:.85; }
+  nav.top { display:flex; flex-wrap:wrap; justify-content:center; gap:.35rem; background:var(--maroon-dark); padding:.5rem; position:sticky; top:0; z-index:10; }
+  nav.top a { color:var(--gold-light); text-decoration:none; padding:.4rem .9rem; border-radius:999px; font-weight:700; font-size:.95rem; transition:transform .2s, background .2s; }
+  nav.top a:hover, nav.top a.active { background:var(--gold); color:var(--maroon-dark); transform:translateY(-2px); }
+  main { max-width:960px; margin:0 auto; padding:2rem 1.1rem 3rem; }
+  .view { animation:fadeUp .6s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:none; } }
+  .hero { text-align:center; padding:1rem 0 2rem; }
+  .hero h2 { font-family:"Aref Ruqaa",serif; font-size:2.5rem; color:var(--maroon); margin:0 0 .3rem; }
+  .hero p { color:var(--muted); max-width:640px; margin:.4rem auto; }
+  .btn { display:inline-block; background:var(--maroon); color:var(--gold-light); border:0; padding:.7rem 1.5rem; border-radius:999px; font:700 1.02rem "Cairo",sans-serif; cursor:pointer; text-decoration:none; margin-top:.8rem; transition:transform .2s; box-shadow:0 6px 18px rgba(122,31,43,.25); animation:pulse 2.4s ease-in-out infinite; }
+  .btn:hover { transform:translateY(-3px) scale(1.03); }
+  .btn.alt { background:var(--gold); color:var(--maroon-dark); }
+  @keyframes pulse { 50% { box-shadow:0 6px 28px rgba(201,162,74,.5); } }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1rem; }
+  .rule-card { background:#fff; border:1px solid var(--gold-light); border-radius:18px; padding:1.2rem; text-decoration:none; color:inherit; display:block; transition:transform .25s, box-shadow .25s; animation:fadeUp .6s ease both; }
+  .rule-card:nth-child(2) { animation-delay:.1s; } .rule-card:nth-child(3) { animation-delay:.2s; } .rule-card:nth-child(4) { animation-delay:.3s; }
+  .rule-card:hover { transform:translateY(-6px); box-shadow:0 14px 28px rgba(122,31,43,.15); }
+  .rule-card .glyph { font-family:"Aref Ruqaa",serif; font-size:2.6rem; color:var(--maroon); line-height:1.2; }
+  .rule-card h3 { margin:.2rem 0; color:var(--maroon-dark); }
+  .rule-card p { margin:0; color:var(--muted); font-size:.95rem; }
+  .panel { background:#fff; border:1px solid var(--gold-light); border-radius:20px; padding:1.5rem; box-shadow:0 6px 18px rgba(122,31,43,.07); margin-bottom:1.2rem; }
+  .panel h2 { font-family:"Aref Ruqaa",serif; color:var(--maroon); font-size:1.9rem; margin:0 0 .4rem; }
+  .panel ul { padding-right:1.2rem; margin:.5rem 0; } .panel li { margin:.3rem 0; }
+  .examples { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:.6rem; margin-top:1rem; }
+  .ex { background:var(--cream); border-right:4px solid var(--gold); border-radius:12px; padding:.6rem; text-align:center; animation:fadeUp .5s ease both; }
+  .ex .w { font-family:"Aref Ruqaa",serif; font-size:1.8rem; color:var(--ink); }
+  .ex mark, .fill mark { background:none; color:var(--maroon); font-weight:900; border-bottom:3px solid var(--gold); }
+  .pager { display:flex; justify-content:space-between; gap:.6rem; margin-top:1rem; flex-wrap:wrap; }
+  /* fill-in */
+  .progress { height:12px; background:var(--gold-light); border-radius:999px; overflow:hidden; margin:.6rem 0 1rem; }
+  .progress > div { height:100%; width:0; background:linear-gradient(90deg,var(--gold),var(--maroon)); transition:width .5s ease; }
+  .score-line { display:flex; justify-content:space-between; color:var(--muted); font-weight:700; }
+  .hint { color:var(--muted); font-size:.95rem; margin-top:.6rem; }
+  .word { font-family:"Aref Ruqaa",serif; font-size:3.6rem; text-align:center; color:var(--ink); margin:.6rem 0 .4rem; animation:fadeUp .4s ease both; }
+  .blank { display:inline-block; width:.8em; height:1.1em; border:2px dashed var(--gold); border-radius:8px; vertical-align:middle; margin:0 .05em; background:var(--cream); animation:blink 1.6s ease-in-out infinite; }
+  @keyframes blink { 50% { border-color:var(--maroon); background:#fff; } }
+  .opts { display:flex; flex-wrap:wrap; justify-content:center; gap:.7rem; }
+  .opt { min-width:96px; background:var(--cream); border:2px solid var(--gold-light); border-radius:16px; padding:.7rem 1rem; font-family:"Aref Ruqaa",serif; font-size:2.2rem; cursor:pointer; color:var(--ink); transition:transform .15s, border-color .2s; }
+  .opt:hover:not(:disabled) { transform:translateY(-4px); border-color:var(--gold); }
+  .opt.right { background:#d8f3e3; border-color:var(--ok); animation:pop .5s ease; }
+  .opt.wrong { background:#f8dcd9; border-color:var(--bad); animation:shake .45s ease; }
+  .opt:disabled { cursor:default; }
+  @keyframes pop { 40% { transform:scale(1.1); } }
+  @keyframes shake { 20%,60% { transform:translateX(-6px); } 40%,80% { transform:translateX(6px); } }
+  .feedback { min-height:2.2rem; margin-top:.8rem; font-weight:700; text-align:center; }
+  .feedback.ok { color:var(--ok); } .feedback.no { color:var(--bad); }
+  .final { text-align:center; }
+  .trophy { font-size:4rem; display:inline-block; animation:float 2s ease-in-out infinite; }
+  @keyframes float { 50% { transform:translateY(-6px); } }
+  .confetti { position:fixed; top:-20px; width:10px; height:14px; z-index:20; animation:fall linear forwards; }
+  @keyframes fall { to { transform:translateY(110vh) rotate(720deg); } }
+  .letters { direction:rtl; }
+  .letter { display:inline; cursor:pointer; border-radius:8px; transition:background .2s; }
+  .letter:hover { background:var(--gold-light); }
+  .letter.err { color:var(--bad); }
+  .chips { display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem; margin:1rem 0; }
+  .chip { font-family:"Aref Ruqaa",serif; font-size:2.2rem; background:var(--cream); border:2px solid var(--gold); border-radius:14px; padding:.2rem .9rem; cursor:grab; user-select:none; transition:transform .15s; }
+  .chip:hover { transform:translateY(-3px); }
+  .chip.sel { background:var(--gold); color:var(--maroon-dark); box-shadow:0 0 0 4px rgba(201,162,74,.35); }
+  .chip.used { opacity:.25; cursor:default; }
+  .drag-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:.8rem; }
+  .drag-word { background:var(--cream); border-radius:14px; padding:.6rem; text-align:center; }
+  .drag-word .word { font-size:2.6rem; margin:.2rem 0; }
+  .slot { display:inline-block; width:.9em; height:1.1em; border:2px dashed var(--gold); border-radius:8px; vertical-align:middle; background:#fff; cursor:pointer; }
+  .slot:hover:not(.ok) { border-style:solid; border-color:var(--maroon); }
+  .slot.ok { border:2px solid var(--ok); background:#d8f3e3; color:var(--ok); width:auto; height:auto; padding:0 .15em; font-size:.85em; }
+  .slot.bad { animation:shake .45s ease; border-color:var(--bad); }
+  @keyframes shimmer { from { background-position:200% center; } to { background-position:-200% center; } }
+  @keyframes wiggle { 0%,100% { transform:rotate(0); } 25% { transform:rotate(-7deg); } 75% { transform:rotate(7deg); } }
+  @keyframes popIn { 0% { opacity:0; transform:scale(.85); } 70% { transform:scale(1.03); } 100% { opacity:1; transform:none; } }
+  @keyframes sheen { to { transform:translateX(120%); } }
+  .hero h2, header.top h1 { background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent; animation:shimmer 5s linear infinite; }
+  .hero h2 { background-image:linear-gradient(90deg,var(--maroon),var(--gold),var(--maroon)); }
+  header.top h1 { background-image:linear-gradient(90deg,var(--gold-light),#fff3cf,var(--gold-light)); }
+  .rule-card:hover { transform:translateY(-8px) rotate(-1deg); }
+  .rule-card:hover .glyph { animation:wiggle .6s ease; }
+  .ex { transition:transform .25s, box-shadow .25s; }
+  .ex:hover { transform:translateY(-4px) scale(1.05); box-shadow:0 8px 18px rgba(122,31,43,.15); }
+  .progress > div { position:relative; overflow:hidden; }
+  .progress > div::after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent); transform:translateX(-100%); animation:sheen 1.8s ease-in-out infinite; }
+  .opt { transition:transform .2s, border-color .2s, box-shadow .2s, background .2s; }
+  .opt:hover:not(:disabled) { box-shadow:0 8px 18px rgba(201,162,74,.35); }
+  .chip:hover { animation:wiggle .5s ease; }
+  .final .trophy { animation:popIn .8s ease both, float 1.6s ease-in-out .8s infinite; }
+  .btn { background-image:linear-gradient(120deg,var(--maroon),#a33446,var(--maroon)); background-size:200% auto; }
+  .btn:hover { background-position:100% center; }
+  /* readable, connected Arabic text everywhere */
+  *, *::before, *::after { font-family:"Cairo", "Segoe UI", Tahoma, sans-serif !important; }
+  .hero h2, header.top h1, .panel h2, .rule-card .glyph, .word, .opt, .chip, .ex .w, footer.top strong { font-weight:800; }
+  .hero h2 { font-size:2.3rem; }
+  .panel h2 { font-size:1.6rem; }
+  .rule-card .glyph { font-size:2.2rem; }
+  .word { font-size:2.9rem; line-height:2.1; }
+  .opt { font-size:1.7rem; }
+  .chip { font-size:1.8rem; }
+  .ex .w { font-size:1.6rem; }
+  .letter { display:inline; }
+.dev-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  padding: 11px 24px;
+  margin: 14px auto;
+
+  background: linear-gradient(
+    135deg,
+    #f4f8f3,
+    #e4eee3
+  );
+
+  color: #173c32;
+  border: 1px solid #d2e1d2;
+  border-radius: 50px;
+
+  font-size: .95rem;
+  font-weight: 900;
+
+  box-shadow:
+    0 4px 12px rgba(23, 60, 50, .06),
+    inset 0 1px 0 #fff;
+
+  transition: all .25s ease;
+}
+
+.dev-badge:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px rgba(23, 60, 50, .12);
+}
+
+.dev-badge .spark {
+  color: #b89545;
+  font-size: 1.2rem;
+}
+ 
+/* ===== ABOUT PAGE ===== */
+
+.about-page {
+  max-width: 950px;
+  margin: auto;
+  padding-bottom: 35px;
+}
+
+/* العنوان */
+.about-hero {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.about-hero h2 {
+  margin-bottom: 10px;
+}
+
+.about-hero p {
+  max-width: 600px;
+  margin: auto;
+  line-height: 1.9;
+}
+
+/* قسم المميزات */
+.about-panel {
+  background: #fff;
+  border: 1px solid #e5ece6;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 28px;
+  box-shadow: 0 5px 18px rgba(23, 60, 50, .05);
+}
+
+.about-panel > h2 {
+  color: #173c32;
+  font-size: 1.35rem;
+  margin: 0 0 22px;
+  text-align: right;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.about-feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 19px;
+  border-radius: 14px;
+  background: #f5f8f5;
+  border: 1px solid #edf1ed;
+}
+
+.about-feature > span {
+  display: grid;
+  place-items: center;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: #dcebdc;
+  font-size: 1.35rem;
+}
+
+.about-feature strong {
+  display: block;
+  color: #173c32;
+  font-size: 1rem;
+  margin-bottom: 7px;
+}
+
+.about-feature p {
+  color: #69776e;
+  font-size: .88rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* بطاقة المطور */
+.about-dev {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px 25px;
+  background: #fff;
+  border: 1px solid #e5ece6;
+  border-radius: 20px;
+  box-shadow: 0 6px 22px rgba(23, 60, 50, .07);
+}
+
+.dev-title {
+  color: #a58432;
+  font-size: .9rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.dev-img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #dcebdc;
+  outline: 2px solid #c69b35;
+  margin-bottom: 18px;
+}
+
+.about-dev h2 {
+  color: #173c32;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin: 0 0 7px;
+}
+
+.dev-role {
+  color: #78877c;
+  font-size: .9rem;
+  margin: 0;
+}
+
+.dev-line {
+  width: 45px;
+  height: 3px;
+  background: #c69b35;
+  border-radius: 5px;
+  margin: 17px 0;
+}
+
+.dev-description {
+  color: #53675a;
+  font-size: .95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+
+  .about-panel {
+    padding: 20px 15px;
+  }
+
+  .about-feature {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .about-feature > span {
+    flex-shrink: 0;
+  }
+
+  .about-dev {
+    max-width: 100%;
+  }
+}
+
+  .dev-avatar { width:72px; height:72px; flex:0 0 72px; border-radius:50%; display:grid; place-items:center; font-size:2rem; color:var(--maroon-dark); background:linear-gradient(135deg,var(--gold),#f8e7b5); animation:glow 3s ease-in-out infinite; }
+  .para { direction:rtl; font-size:1.45rem; line-height:2.7; background:var(--cream); border-radius:16px; padding:1.2rem 1.4rem; }
+  .pblank { display:inline-block; min-width:1.2em; text-align:center; border:2px dashed var(--gold); border-radius:8px; padding:0 .2em; cursor:pointer; background:#fff; color:var(--maroon); font-weight:900; transition:transform .2s; }
+  .pblank:hover { transform:translateY(-2px); border-style:solid; }
+  .pblank.active { border-color:var(--maroon); box-shadow:0 0 0 4px rgba(201,162,74,.35); animation:blink 1.2s infinite; }
+  .pblank.ok { border:2px solid var(--ok); background:#d8f3e3; color:var(--ok); }
+  .pblank.bad { border:2px solid var(--bad); background:#f8dcd9; color:var(--bad); animation:shake .45s ease; }
+  footer.top { background:var(--maroon); color:var(--gold-light); text-align:center; padding:1.2rem; margin-top:2rem; }
+  footer.top strong { font-family:"Aref Ruqaa",serif; color:var(--gold); font-size:1.3rem; }
+  @media (max-width:600px) { .hero h2 { font-size:2rem; } .word { font-size:2.8rem; } .opt { min-width:80px; font-size:1.9rem; } }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none !important; transition:none !important; } }
+  .pblank { background:#fff !important; color:#2b1d1f !important; animation:none !important; border:2px dashed #7a1f2b !important; min-width:1.3em; font-size:1.1em; }
+  .pblank.active { background:#f1dfae !important; color:#2b1d1f !important; border:2px solid #7a1f2b !important; box-shadow:0 0 0 4px rgba(201,162,74,.5) !important; }
+  .pblank.ok { background:#c9f0d9 !important; color:#15502f !important; border:2px solid #2f8f5b !important; }
+  .pblank.bad { background:#f7d0cc !important; color:#7a0f17 !important; border:2px solid #b3261e !important; animation:shake .45s ease !important; }
+  .chips .chip { background:#fff; color:#2b1d1f; border:2px solid #7a1f2b; font-size:2rem; font-weight:900; min-width:64px; text-align:center; }
+  .chips .chip:hover { background:#f1dfae; }
+  .tip { background:#fff7e0; border:2px solid #c9a24a; border-radius:12px; padding:.6rem 1rem; margin:.6rem 0; font-weight:700; text-align:center; color:#2b1d1f; }
+  .feedback.no { color:#b3261e; }
+  .nw { white-space:nowrap; }
+  .oslots { display:flex; flex-wrap:wrap; justify-content:center; gap:.5rem; direction:rtl; margin:1rem 0; }
+  .oslot { min-width:56px; height:64px; border:2px dashed var(--gold); border-radius:12px; display:grid; place-items:center; font-size:2.2rem; font-weight:900; background:#fff; color:#2b1d1f; }
+  .oslot.ok { border:2px solid #2f8f5b; background:#c9f0d9; color:#15502f; }
+  .tiles { display:flex; flex-wrap:wrap; justify-content:center; gap:.6rem; }
+  .tile { min-width:60px; height:64px; border:2px solid #7a1f2b; border-radius:14px; background:#fff; color:#2b1d1f; font-size:2.2rem; font-weight:900; cursor:pointer; font-family:inherit; transition:transform .15s, background .2s; }
+  .tile:hover { transform:translateY(-3px); background:#f1dfae; }
+  .tile.gone { visibility:hidden; border:none; }
+  .ord-row { display:flex; gap:.6rem; justify-content:center; font-size:1.3rem; font-weight:700; margin:.2rem 0; }
+  .ord-row.ok { color:#15502f; } .ord-row.no { color:#7a0f17; }
+
+  /* ===== design polish ===== */
+  body { background: radial-gradient(1200px 600px at 50% -10%, #fff8e6 0%, var(--cream) 55%, #f6ecd9 100%) fixed; }
+  header.top { background: linear-gradient(160deg, #8a2634 0%, var(--maroon) 55%, var(--maroon-dark) 100%); padding: 1.8rem 1rem 1.2rem; box-shadow: 0 6px 24px rgba(79,16,25,.25); }
+  header.top h1 { font-size: 2.2rem; letter-spacing: .5px; }
+  nav.top { background: rgba(79,16,25,.96); backdrop-filter: blur(6px); box-shadow: 0 4px 14px rgba(0,0,0,.18); border-bottom: 2px solid var(--gold); }
+  nav.top a { font-size: .92rem; padding: .45rem 1rem; }
+  nav.top a.active { background: var(--gold); color: var(--maroon-dark); box-shadow: 0 2px 8px rgba(201,162,74,.5); }
+  main { padding-top: 1.6rem; }
+  .hero h2 { font-size: 2.4rem; margin-bottom: .2rem; }
+  .hero p { font-size: 1.02rem; color: #5c4a4d; }
+  .panel { border: 1px solid rgba(201,162,74,.45); border-radius: 22px; padding: 1.7rem 1.6rem; background: rgba(255,255,255,.92); box-shadow: 0 10px 30px rgba(122,31,43,.08), inset 0 1px 0 rgba(255,255,255,.8); }
+  .rule-card { border-radius: 22px; padding: 1.4rem 1.2rem; border: 1px solid rgba(201,162,74,.4); background: linear-gradient(180deg,#fff,#fffaf0); box-shadow: 0 6px 18px rgba(122,31,43,.06); position: relative; overflow: hidden; }
+  .rule-card::before { content: ""; position: absolute; inset: auto 0 0 0; height: 4px; background: linear-gradient(90deg, var(--gold), var(--maroon)); transform: scaleX(0); transform-origin: right; transition: transform .35s ease; }
+  .rule-card:hover::before { transform: scaleX(1); }
+  .rule-card .glyph { font-size: 2.6rem; margin-bottom: .2rem; }
+  .rule-card h3 { font-size: 1.12rem; }
+  .btn { box-shadow: 0 8px 20px rgba(122,31,43,.22); }
+  .btn.alt { box-shadow: 0 8px 20px rgba(201,162,74,.3); }
+  .btn:focus-visible, .opt:focus-visible, .chip:focus-visible, .tile:focus-visible, nav.top a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .opt { border-radius: 16px; background: linear-gradient(180deg,#fff,#fbf5e6); box-shadow: 0 3px 10px rgba(122,31,43,.06); }
+  .para { background: linear-gradient(180deg,#fffdf7,#fbf4e4); border: 1px solid rgba(201,162,74,.35); }
+  .progress { height: 10px; background: #efe2bf; }
+  .score-line { font-size: .95rem; }
+  .feedback { font-size: 1.05rem; }
+  .tip { border-radius: 14px; }
+  .ex { border-radius: 14px; background: linear-gradient(180deg,#fffdf7,#fbf4e4); }
+  footer.top { background: linear-gradient(160deg, var(--maroon), var(--maroon-dark)); padding: 1.6rem 1rem; }
+  @media (max-width: 600px) {
+    main { padding: 1.2rem .8rem 2.4rem; }
+    .panel { padding: 1.2rem 1rem; border-radius: 18px; }
+    .hero h2 { font-size: 2rem; }
+    .word { font-size: 2.6rem; }
+    .opt { min-width: 74px; }
+  }
+  .welcome { display:flex; align-items:center; gap:1.6rem; background:linear-gradient(135deg,#fff,#fbf3df); border:1px solid rgba(201,162,74,.45); border-radius:26px; padding:1.6rem; box-shadow:0 10px 30px rgba(122,31,43,.08); margin-bottom:1.2rem; }
+  .welcome h2 { font-family:"Cairo",sans-serif; font-size:1.9rem; margin:0 0 .3rem; background:none; -webkit-text-fill-color:initial; color:var(--maroon); }
+  .welcome p { margin:.2rem 0 .6rem; color:#5c4a4d; }
+  .w-logo { width:112px; height:112px; flex:0 0 112px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; box-shadow:0 0 0 6px rgba(201,162,74,.18); }
+  .w-actions { display:flex; flex-wrap:wrap; gap:.6rem; }
+  .w-actions .btn { margin-top:0; }
+  .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:.8rem; margin-bottom:1.6rem; }
+  .stat { background:#fff; border:1px solid rgba(201,162,74,.4); border-radius:18px; text-align:center; padding:.9rem .4rem; box-shadow:0 6px 16px rgba(122,31,43,.06); }
+  .stat b { display:block; font-size:1.8rem; color:var(--maroon); font-weight:900; }
+  .stat span { color:#6d5b5e; font-size:.92rem; }
+  .sec-title { color:var(--maroon-dark); font-size:1.3rem; margin:.4rem 0 .8rem; }
+  .tip-line { margin-top:1.4rem; text-align:center; color:#6d5b5e; background:rgba(201,162,74,.12); border-radius:14px; padding:.8rem 1rem; }
+  @media (max-width:600px) {
+    .welcome { flex-direction:column; text-align:center; padding:1.2rem; }
+    .w-actions { justify-content:center; }
+    .stats { grid-template-columns:repeat(2,1fr); }
+  }
+  .scene { position:relative; height:88vh; min-height:460px; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow:hidden; border-radius:28px; margin-bottom:2rem; background:radial-gradient(circle at 50% 35%, #fffaf0 0%, #f6e7c0 55%, #e7cc8c 100%); box-shadow:0 18px 40px rgba(122,31,43,.15); --p:0; }
+  .s-glow { position:absolute; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, rgba(201,162,74,.45), transparent 65%); transform:scale(calc(1 + var(--p) * .6)); opacity:calc(1 - var(--p) * .6); }
+  .s-logo { position:relative; width:170px; height:170px; border-radius:50%; border:4px solid var(--gold); object-fit:cover; background:#fff; box-shadow:0 0 0 10px rgba(201,162,74,.2); transform:rotate(calc(var(--p) * 40deg)) scale(calc(1 - var(--p) * .35)); transition:transform .1s linear; }
+  .s-title { position:relative; font-family:"Cairo",sans-serif; font-weight:900; font-size:2.6rem; color:var(--maroon); margin:1rem 0 .3rem; transform:translateY(calc(var(--p) * -120px)); opacity:calc(1 - var(--p) * 1.3); }
+  .s-sub { position:relative; color:#6d5b5e; font-size:1.05rem; margin:0; opacity:calc(1 - var(--p) * 1.6); }
+  @media (max-width:600px) { .scene { height:80vh; min-height:400px; } .s-logo { width:130px; height:130px; } .s-title { font-size:2rem; } }
+  .intro { position:relative; z-index:1; height:100vh; min-height:520px; overflow:hidden; background:#4f1019; --p:0; }
+  #blinds { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .intro-box { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) translateY(calc(var(--p) * -80px)); opacity:calc(1 - var(--p) * 1.4); width:min(560px, 90%); text-align:center; background:rgba(255,250,240,.9); border-radius:28px; padding:2rem 2.2rem; box-shadow:0 20px 50px rgba(40,8,14,.35); border:1px solid rgba(201,162,74,.5); }
+  .i-logo { width:128px; height:128px; border-radius:50%; border:4px solid var(--gold); object-fit:cover; box-shadow:0 0 0 8px rgba(201,162,74,.2); }
+  .intro-box h1 { font-family:"Cairo",sans-serif; font-weight:900; font-size:2.5rem; color:var(--maroon); margin:.8rem 0 .2rem; }
+  .intro-box p { color:#5c4a4d; margin:0 0 .8rem; }
+  .i-hint { color:var(--maroon-dark); font-weight:700; animation:bob 2.4s ease-in-out infinite; }
+  @media (max-width:600px) { .intro-box { padding:1.4rem 1.2rem; } .intro-box h1 { font-size:2rem; } .i-logo { width:104px; height:104px; } }
+  .blinds-css { position:absolute; inset:0; background:
+      repeating-linear-gradient(90deg, rgba(40,8,14,.35) 0 3px, transparent 3px 64px),
+      linear-gradient(100deg, #4f1019 0%, #7a1f2b 30%, #c9a24a 65%, #f1dfae 100%);
+    background-size: auto, 220% 100%;
+    animation: blindsMove 14s ease-in-out infinite alternate; }
+  @keyframes blindsMove { from { background-position: 0 0, 0% 50%; } to { background-position: 0 0, 100% 50%; } }
+  .blinds-css::after { content:""; position:absolute; inset:0; background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,246,220,.45), transparent 40%); animation: lightDrift 9s ease-in-out infinite alternate; }
+  @keyframes lightDrift { from { transform: translate(-12%, -6%); } to { transform: translate(12%, 8%); } }
+  .intro-box { animation: popIn .9s ease both .2s; }
+  .i-logo { animation: spinIn 1.2s ease both, glow 3s ease-in-out 1.2s infinite; }
+  @keyframes spinIn { from { transform: rotate(-200deg) scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="bg-leaves" id="leaves" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="top">
+    <img class="logo" src="dawha-logo.jfif" alt="شعار مدرسة دَوْحة الإبداع والتميّز">
+    <h1>لعبة اكمل الفراغ بالهمزة</h1>
+    <p>مدرسة دَوْحة الإبداع والتميّز</p>
+    <div id="devTop"></div>
+  </header>
+
+  <nav class="top" aria-label="التنقل">
+    <a href="#home" data-nav="home">الرئيسية</a>
+    <a href="#rules" data-nav="rules">القواعد</a>
+    <a href="#games" data-nav="game">الألعاب</a>
+    <a href="#about" data-nav="about">عن الموقع</a>
+  </nav>
+
+  <main id="app"></main>
+
+  <footer class="top">
+    <strong>مدرسة دَوْحة الإبداع والتميّز</strong>
+    <div>نبني الإبداع بالعلم والتميّز</div>
+    <div id="devFoot" style="margin-top:.5rem"></div>
+  </footer>
+</div>
+
+<script>
+// items: [word, index of the hidden letter (counted in characters)]
+let selectedRuleId = "all";
+const RULES = [
+  // 1) مراجعة إضافية: همزة القطع والوصل
+  {
+    id: "qat-wasl",
+    glyph: "أ ا",
+    title: "همزة القطع وهمزة الوصل",
+    short: "أكمل الفراغ: قطع أم وصل؟",
+    intro: "همزة القطع تُكتب «أ» أو «إ» وتُنطق دائمًا، أما همزة الوصل فتُكتب ألفًا بلا همزة، وتُنطق في بداية الكلام وتسقط في وصله.",
+    points: [
+      "همزة القطع تأتي في مثل: أكل، أرسل، أكرم، إكرام.",
+      "همزة الوصل تأتي في مثل: استخرج، انتصر، اجتهد، والـ التعريف مثل: الكتاب."
+    ],
+    opts: ["أ", "ا"],
+    items: [
+      ["أكل", 0], ["أرسل", 0], ["أسرع", 0], ["أمسك", 0],
+      ["أكتب", 0], ["استخرج", 0], ["انتصر", 0], ["امتحن", 0],
+      ["استعمل", 0], ["انتظر", 0], ["الكتاب", 0], ["اجتهد", 0],
+      ["أخذ", 0], ["أكمل", 0], ["أنقذ", 0], ["اجتماع", 0],
+      ["استماع", 0], ["اسم", 0], ["ابن", 0], ["انتقل", 0]
+    ]
+  },
+
+  // 2) مراجعة إضافية: الهمزة في أول الكلمة
+  {
+    id: "awwal",
+    glyph: "أ إ آ",
+    title: "الهمزة في أول الكلمة",
+    short: "أ أم إ أم آ؟",
+    intro: "تُكتب الهمزة في أول الكلمة بحسب حركتها: «أ» مع الفتحة أو الضمة، و«إ» مع الكسرة، و«آ» عند اجتماع همزة المد مع الألف.",
+    points: [
+      "تُكتب «أ» مع الفتحة والضمة، مثل: أكل، أمّ، أحمد.",
+      "تُكتب «إ» مع الكسرة، مثل: إلى، إبراهيم، إيمان.",
+      "تُكتب «آ» في كلمات مثل: آمن، آلة، آية."
+    ],
+    opts: ["أ", "إ", "آ"],
+    items: [
+      ["أكل", 0], ["أمّ", 0], ["أحمد", 0], ["أسد", 0],
+      ["إلى", 0], ["إبراهيم", 0], ["إيمان", 0], ["إسلام", 0],
+      ["إبريق", 0], ["آمن", 0], ["آلة", 0], ["آية", 0],
+      ["آخر", 0], ["آمال", 0], ["أحب", 0], ["أخذ", 0],
+      ["إنسان", 0], ["إذاعة", 0], ["إشارة", 0], ["آثار", 0],
+      ["آلام", 0]
+    ]
+  },
+
+  // 3) المنهاج: الهمزة المتوسطة (مراجعة)
+  {
+    id: "wasat",
+    glyph: "ئ ؤ أ",
+    title: "الهمزة المتوسطة (مراجعة)",
+    short: "الحركة الأقوى تحدد كرسي الهمزة",
+    intro: "ننظر إلى حركة الهمزة وحركة الحرف الذي يسبقها، ثم نكتب الهمزة على الحرف الذي يناسب أقوى الحركتين. وترتيب الحركات من الأقوى إلى الأضعف: الكسرة، فالضمة، فالفتحة، فالسكون.",
+    points: [
+      "الكسرة أقوى الحركات، ويناسبها كرسي الياء «ئ»، مثل: بئر، ذئب، رئيس.",
+      "الضمة تلي الكسرة في القوة، ويناسبها كرسي الواو «ؤ»، مثل: سؤال، مسؤول، شؤون.",
+      "الفتحة تلي الضمة، ويناسبها كرسي الألف «أ»، مثل: سأل، رأس، تأخير.",
+      "إذا اختلفت حركة الهمزة عن حركة الحرف السابق، نعتمد الحركة الأقوى منهما."
+    ],
+    opts: ["ئ", "ؤ", "أ"],
+    items: [
+      ["بئر", 1], ["سائل", 2], ["ذئب", 1], ["رئيس", 1],
+      ["جزئي", 2], ["مسؤول", 2], ["يؤمن", 1], ["بؤس", 1],
+      ["شؤون", 1], ["سأل", 1], ["رأس", 1], ["مأمون", 1],
+      ["سؤال", 1], ["مسائل", 3], ["يسأل", 2], ["تأكيد", 1],
+      ["يؤكد", 1], ["رؤية", 1], ["رئاسة", 1], ["كؤوس", 1],
+      ["سائلون", 2], ["تأخير", 1], ["مؤسسة", 1], ["فئة", 1],
+      ["مائدة", 2], ["فؤاد", 1], ["مأوى", 1]
+    ]
+  },
+
+  // 4) المنهاج: الحالات الخاصة في كتابة الهمزة المتوسطة
+  {
+    id: "wasat-special",
+    glyph: "ء ئ",
+    title: "حالات خاصة في كتابة الهمزة المتوسطة",
+    short: "متى تُكتب على السطر ومتى تُكتب على نبرة؟",
+    intro: "هناك حالات خاصة للهمزة المتوسطة المفتوحة بعد حروف المد الساكنة، فلا نطبق قاعدة أقوى الحركتين وحدها في هذه المواضع.",
+    points: [
+      "إذا جاءت الهمزة المتوسطة مفتوحة بعد ألف ساكنة، كُتبت على السطر «ء»، مثل: قراءة، عباءة، تساءل.",
+      "إذا جاءت الهمزة المتوسطة مفتوحة بعد واو ساكنة، كُتبت على السطر «ء»، مثل: مروءة، مقروءة، ضوءك.",
+      "إذا جاءت الهمزة المتوسطة مفتوحة بعد ياء ساكنة، كُتبت على نبرة «ئ»، مثل: هيئة، بيئة، مشيئة.",
+      "انتبه إلى الحرف الذي يسبق الهمزة: ألف ساكنة أو واو ساكنة أو ياء ساكنة."
+    ],
+    opts: ["ء", "ئ"],
+    items: [
+      ["قراءة", 3], ["عباءة", 3], ["تساءل", 3],
+      ["مروءة", 3], ["مقروءة", 4], ["ضوءك", 2],
+      ["هيئة", 2], ["بيئة", 2], ["مشيئة", 3], ["خطيئة", 3]
+    ]
+  },
+
+  // 5) المنهاج: ألف تنوين النصب بعد الهمزة المتطرفة
+  {
+    id: "tanween",
+    glyph: "ئًا ءًا",
+    title: "ألف تنوين النصب بعد الهمزة المتطرفة",
+    short: "كيف نكتب الهمزة عند تنوينها بالفتح؟",
+    intro: "عند تنوين الاسم المنتهي بهمزة متطرفة تنوين فتح، يتغير رسم الهمزة بحسب الحرف الذي يسبقها، وهل يتصل بما بعده أم لا.",
+    points: [
+      "إذا سبق الهمزة حرف يتصل بما بعده، تُكتب الهمزة على نبرة مع ألف التنوين، مثل: شيئًا، عبئًا، دفئًا.",
+      "إذا سبق الهمزة حرف لا يتصل بما بعده، تبقى الهمزة على السطر وتُضاف ألف التنوين، مثل: جزءًا، هدوءًا، ضوءًا.",
+      "إذا سبقت الهمزة ألف، تبقى على السطر ولا نضيف ألفًا أخرى، مثل: سماءً، بناءً، مساءً.",
+      "من الحروف التي لا تتصل بما بعدها: ا، د، ذ، ر، ز، و."
+    ],
+    opts: ["ئ", "ء"],
+    items: [
+      ["شيئًا", 2], ["عبئًا", 2], ["دفئًا", 2],
+      ["بطيئًا", 3],["جزءًا", 2], ["هدوءًا", 3],
+      ["ضوءًا", 2], ["سماءً", 3], ["بناءً", 3],
+      ["مساءً", 3], ["رجاءً", 3]
+    ]
+  },
+
+  // 6) مراجعة إضافية: الهمزة في آخر الكلمة
+  {
+    id: "akhir",
+    glyph: "ء ئ ؤ",
+    title: "الهمزة في آخر الكلمة",
+    short: "على السطر أم على حرف؟",
+    intro: "تُكتب الهمزة المتطرفة بحسب حركة الحرف الذي يسبقها: بعد الكسرة على نبرة، وبعد الضمة على واو، وبعد الفتحة على ألف، وبعد السكون على السطر.",
+    points: [
+      "على نبرة «ئ» بعد الكسرة، مثل: قارئ، مبتدئ، منشئ.",
+      "على واو «ؤ» بعد الضمة، مثل: يجرؤ.",
+      "على ألف «أ» بعد الفتحة، مثل: قرأ، ملأ، نبأ، خطأ.",
+      "على السطر «ء» بعد السكون أو حروف المد، مثل: ماء، سماء، شيء، جزء."
+    ],
+    opts: ["أ", "ئ", "ؤ", "ء"],
+    items: [
+      ["ماء", 2], ["سماء", 3], ["شيء", 2], ["جزء", 2],
+      ["بدء", 2], ["قارئ", 3], ["مبتدئ", 4], ["منشئ", 3],
+      ["قرأ", 2], ["ملأ", 2], ["نبأ", 2], ["خطأ", 2],
+       ["يبدأ", 3], ["يجرؤ", 3]
+    ]
+  }
+];
+
+const ALL = RULES.flatMap(r =>
+  r.items.map(([w, p]) => ({
+    r,
+    w,
+    p,
+    a: [...w][p]
+  }))
+);
+
+let game = null;
+
+const shuffle = arr => [...arr].sort(() => Math.random() - .5);
+const shown = (w, p) => [...w].map((c, k) => k === p ? `<mark>${c}</mark>` : c).join("");
+const hidden = (w, p) => [...w].map((c, k) => k === p ? `<span class="blank"></span>` : c).join("");
+
+function sceneHtml() {
+  const logo = (document.querySelector(".logo") || {}).src || "";
+  return `<div class="scene" id="scene">
+    <div class="s-glow"></div>
+    <img class="s-logo" src="${logo}" alt="">
+    <h1 class="s-title">أهلًا بك في عالم الهمزة</h1>
+    <p class="s-sub">مرّر للأسفل لتبدأ الرحلة ↓</p>
+  </div>`;
+}
+function updateScene() {
+  const s = document.getElementById("scene");
+  if (!s) return;
+  const reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const top = s.getBoundingClientRect().top + window.scrollY;
+  const span = s.offsetHeight * 0.8;
+  const p = reduce ? 1 : Math.min(1, Math.max(0, (window.scrollY - top) / span));
+  s.style.setProperty("--p", p.toFixed(3));
+}
+function home() {
+  const logo = (document.querySelector(".logo") || {}).src || "";
+  return `<section class="view">
+    <div class="welcome">
+      <img class="w-logo" src="${logo}" alt="شعار المدرسة">
+      <div>
+        <h2>أهلًا بك في عالم الهمزة</h2>
+        <p>تعلّم قواعد الهمزة خطوة بخطوة، ثم تدرّب عليها بثماني ألعاب تفاعلية، وتابع نتائجك على هذا الجهاز.</p>
+        <div class="w-actions">
+          <a class="btn" href="#rules">ابدأ من القواعد</a>
+          <a class="btn alt" href="#games">اختر لعبة</a>
+        </div>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>4</b><span>قواعد</span></div>
+      <div class="stat"><b>8</b><span>ألعاب</span></div>
+      <div class="stat"><b>3</b><span>مستويات</span></div>
+      <div class="stat"><b>∞</b><span>محاولات</span></div>
+    </div>
+    <h3 class="sec-title">القواعد الأربع</h3>
+    ${cardsHtml()}
+    <div class="tip-line">💡 ابدأ بالقاعدة الأولى، وبعد كل درس جرّب اللعبة المناسبة لها.</div>
+  </section>`;
+}
+
+function cardsHtml() {
+  return `<div class="cards">${RULES.map(r => `
+    <a class="rule-card" href="#${r.id}">
+      <div class="glyph">${r.glyph}</div>
+      <h3>${r.title}</h3><p>${r.short}</p>
+    </a>`).join("")}</div>`;
+}
+
+function rulesIndex() {
+  return `<section class="view"><div class="hero"><h2>قواعد الهمزة</h2><p>اختر قاعدة لتبدأ الدرس والتدريب.</p></div>${cardsHtml()}</section>`;
+}
+
+
+function rulePage(r) {
+  const i = RULES.indexOf(r);
+  const prev = RULES[i - 1];
+  const next = RULES[i + 1];
+
+  return `<section class="view">
+    <div class="panel">
+      <h2>${r.title}</h2>
+      <p>${r.intro}</p>
+
+      <ul>
+        ${r.points.map(p => `<li>${p}</li>`).join("")}
+      </ul>
+
+      <h3>أمثلة من القاعدة</h3>
+      <div class="examples">
+        ${r.items.map(([w, p]) => `
+          <div class="ex" style="cursor:pointer" onclick="speakWord('${w}')">
+            <div class="w">${shown(w, p)}</div>
+          </div>
+        `).join("")}
+      </div>
+
+      <p class="hint">اضغط على أي كلمة لسماع نطقها، والحرف المخفي هو موضع التدريب</p>
+    </div>
+
+    <div class="panel">
+      <h2>تدرّب: أكمل الفراغ</h2>
+      <div id="mini"></div>
+    </div>
+
+    <div class="pager">
+      ${prev
+        ? `<a class="btn alt" href="#${prev.id}">← القاعدة السابقة</a>`
+        : `<a class="btn alt" href="#rules">← كل القواعد</a>`
+      }
+
+      ${next
+        ? `<a class="btn" href="#${next.id}">القاعدة التالية ←</a>`
+        : `<a class="btn" href="#game">إلى التحدي ←</a>`
+      }
+    </div>
+  </section>`;
+}
+
+
+// محرك الأسئلة المشترك
+// questions = [{w, p, a, o}], onDone(score, total)
+function runQuiz(box, questions, perPoint, onDone) {
+  let i = 0;
+  let score = 0;
+
+  const draw = () => {
+    if (i >= questions.length) {
+      onDone(score, questions.length);
+      return;
+    }
+
+    const q = questions[i];
+
+    // ضمان وجود الإجابة الصحيحة ضمن الخيارات
+    const options = [...new Set([...(q.o || []), q.a])];
+    const correctIndex = options.indexOf(q.a);
+
+    box.innerHTML = `
+      <div class="score-line">
+        <span>سؤال ${i + 1} من ${questions.length}</span>
+        <span>${perPoint ? "النقاط: " + score * perPoint : score + " ✔"}</span>
+      </div>
+
+      <div class="progress">
+        <div style="width:${(i / questions.length) * 100}%"></div>
+      </div>
+
+      <div class="hint">
+        اختر الحرف المناسب مكان الفراغ
+        <button class="btn alt" style="margin-top:0" onclick="speakWord('${q.w}')">
+          🔊 استمع
+        </button>
+      </div>
+
+      <div class="word fill">${hidden(q.w, q.p)}</div>
+
+      <div class="opts">
+        ${options.map((t, k) =>
+          `<button class="opt" data-k="${k}">${t}</button>`
+        ).join("")}
+      </div>
+
+      <div class="feedback" id="fb"></div>
+    `;
+
+    const btns = box.querySelectorAll(".opt");
+
+    btns.forEach(b => {
+      b.onclick = () => {
+        // منع اختيار أكثر من إجابة للسؤال نفسه
+        btns.forEach(x => x.disabled = true);
+
+        const k = Number(b.dataset.k);
+        const fb = box.querySelector("#fb");
+        const correct = k === correctIndex;
+
+        if (correct) {
+          sfx(true);
+          speakWord(q.w);
+          score++;
+
+          b.classList.add("right");
+          fb.className = "feedback ok";
+          fb.innerHTML = `أحسنت! ✨ الكلمة: ${shown(q.w, q.p)}`;
+        } else {
+          sfx(false);
+
+          b.classList.add("wrong");
+          btns[correctIndex].classList.add("right");
+
+          fb.className = "feedback no";
+          fb.innerHTML = `الصحيح هو «${q.a}» في الكلمة: ${shown(q.w, q.p)}`;
+        }
+
+        setTimeout(() => {
+          i++;
+          draw();
+        }, 1700);
+      };
+    });
+  };
+
+  draw();
+}
+
+
+function mountMini(r) {
+  const box = document.getElementById("mini");
+  if (!box) return;
+
+  // اختيار ست كلمات عشوائية من القاعدة
+  const build = () => {
+    return shuffle([...r.items])
+      .slice(0, 6)
+      .map(([w, p]) => {
+        const a = [...w][p];
+
+        return {
+          w,
+          p,
+          a,
+          o: [...new Set([...(r.opts || []), a])]
+        };
+      });
+  };
+
+  const start = () => {
+    runQuiz(box, build(), 0, (s, t) => {
+      box.innerHTML = `
+        <div class="final">
+          <div class="trophy">${s === t ? "🎉" : "📚"}</div>
+
+          <h2>نتيجتك: ${s} من ${t}</h2>
+
+          <p>
+            ${s === t
+              ? "ممتاز، أتقنت هذه القاعدة!"
+              : "راجع الأمثلة في الأعلى وجرّب مرة أخرى."
+            }
+          </p>
+
+          <button class="btn" id="again">
+            تدرّب مرة أخرى
+          </button>
+        </div>
+      `;
+
+      document.getElementById("again").onclick = start;
+
+      if (s === t) confetti();
+    });
+  };
+
+  start();
+}
+
+
+function gamePage() {
+  return `<section class="view">
+    <div class="hero"><h2>التحدّي</h2><p>١٠ كلمات عشوائية من كل القواعد. كل إجابة صحيحة تعطيك ١٠ نقاط.</p></div>
+    <div class="panel" id="gameBox"></div></section>`;
+}
+
+function startGame() {
+  const source = selectedRuleId === "all"
+    ? ALL
+    : ALL.filter(x => x.r.id === selectedRuleId);
+
+  game = {
+    pool: shuffle(source).slice(0, 10).map(x => ({
+      w: x.w,
+      p: x.p,
+      a: x.a,
+      o: x.r.opts
+    })),
+    score: 0
+  };
+}
+
+function drawGame() {
+  const box = document.getElementById("gameBox");
+  if (!box) return;
+  if (!game) startGame();
+  runQuiz(box, game.pool, 10, (s, t) => {
+    const max = t * 10, pts = s * 10;
+    saveResult("اكمل الفراغ", pts, max);
+    box.innerHTML = `<div class="final"><div class="trophy">${pts >= max * .7 ? "🏆" : "⭐"}</div>
+      <h2>نتيجتك: ${pts} من ${max}</h2>
+      <p>${pts === max ? "ممتاز! أنت سيّد الهمزة." : pts >= max * .5 ? "أحسنت، راجع القواعد وحاول مرة أخرى." : "لا بأس، ارجع إلى الدروس وجرّب من جديد."}</p>
+      <button class="btn" id="replay">العب مرة أخرى</button>
+      <a class="btn alt" href="#rules" style="margin-inline-start:.5rem">راجع القواعد</a></div>`;
+    document.getElementById("replay").onclick = () => { startGame(); drawGame(); };
+    if (pts >= max * .7) confetti();
+  });
+}
+
+const HAMZAS = ["أ", "إ", "آ", "ئ", "ؤ", "ء"];
+const WRONG_SET = [["مسؤول", 2, "ئ"], ["بئر", 1, "أ"], ["قرأ", 2, "ء"], ["سماء", 3, "أ"], ["رأس", 1, "ئ"], ["أكل", 0, "إ"], ["إلى", 0, "أ"], ["إيمان", 0, "أ"], ["شيء", 2, "أ"], ["يبدأ", 3, "ء"], ["جزء", 2, "أ"], ["قارئ", 3, "ؤ"]];
+let fx = null, dg = null;
+
+
+
+function gamesHub() {
+  return `<section class="view">
+
+    <div class="hero">
+      <h2>الألعاب</h2>
+      <p>اختر لعبة. كل لعبة تدرّبك على الهمزة بطريقة مختلفة.</p>
+    </div>
+
+    <div class="panel">
+      <h2>دروس المنهاج الفلسطيني</h2>
+      <p>الصف الثامن – الفصل الأول</p>
+
+      <div class="cards">
+        <a class="rule-card" href="#wasat">
+          <div class="glyph">ئ ؤ أ</div>
+          <h3>الهمزة المتوسطة</h3>
+          <p>مراجعة قاعدة أقوى الحركتين.</p>
+        </a>
+
+        <a class="rule-card" href="#wasat-special">
+          <div class="glyph">ء ئ</div>
+          <h3>الحالات الخاصة</h3>
+          <p>مواضع كتابة الهمزة المتوسطة بطريقة خاصة.</p>
+        </a>
+
+        <a class="rule-card" href="#tanween">
+          <div class="glyph">ئًا ءًا</div>
+          <h3>تنوين النصب</h3>
+          <p>ألف تنوين النصب بعد الهمزة المتطرفة.</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>ألعاب التدريب</h2>
+
+      <div class="cards">
+
+        <a class="rule-card" href="#choose-game-game">
+          <div class="glyph">✍️</div>
+          <h3>أكمل الفراغ</h3>
+          <p>اختر الهمزة المناسبة مكان الفراغ.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-truefalse">
+          <div class="glyph">✔</div>
+          <h3>الصح أم الخطأ</h3>
+          <p>احكم على كتابة الكلمة.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-classify">
+          <div class="glyph">🗂</div>
+          <h3>صنّف الهمزة</h3>
+          <p>اختر الحرف الذي تُكتب عليه الهمزة.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-race">
+          <div class="glyph">⏱</div>
+          <h3>السباق على الوقت</h3>
+          <p>أكمل أكبر عدد من الأسئلة في دقيقة.</p>
+        </a>
+
+        <a class="rule-card" href="#results">
+          <div class="glyph">🏅</div>
+          <h3>نتائجي</h3>
+          <p>آخر نتائجك على هذا الجهاز.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-order">
+          <div class="glyph">🔤</div>
+          <h3>رتّب الكلمة</h3>
+          <p>رتّب حروف الكلمة بالترتيب الصحيح.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-para">
+          <div class="glyph">📝</div>
+          <h3>أكمل النص</h3>
+          <p>أكمل همزات نص قصير كامل.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-fix">
+          <div class="glyph">🔍</div>
+          <h3>تصحيح الخطأ</h3>
+          <p>اعثر على الهمزة الخاطئة وصحّحها.</p>
+        </a>
+
+        <a class="rule-card" href="#choose-game-drag">
+          <div class="glyph">🧲</div>
+          <h3>اسحب الهمزة</h3>
+          <p>انقل كل همزة إلى الكلمة المناسبة.</p>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>مراجعة إضافية</h2>
+      <div class="cards">
+
+        <a class="rule-card" href="#qat-wasl">
+          <div class="glyph">أ ا</div>
+          <h3>همزة القطع والوصل</h3>
+          <p>راجع الفرق بينهما.</p>
+        </a>
+
+        <a class="rule-card" href="#awwal">
+          <div class="glyph">أ إ آ</div>
+          <h3>الهمزة في أول الكلمة</h3>
+          <p>تعرّف إلى أشكال الهمزة في البداية.</p>
+        </a>
+
+        <a class="rule-card" href="#akhir">
+          <div class="glyph">ء ئ ؤ</div>
+          <h3>الهمزة في آخر الكلمة</h3>
+          <p>راجع قواعد الهمزة المتطرفة.</p>
+        </a>
+
+      </div>
+    </div>
+
+  </section>`;
+}
+
+
+function fixPage() { return `<section class="view"><div class="hero"><h2>تصحيح الخطأ</h2><p>في كل كلمة همزة مكتوبة بشكل خاطئ. اضغط على الحرف الخاطئ ثم اختر الهمزة الصحيحة.</p></div><div class="panel" id="fixBox"></div></section>`; }
+function dragPage() { return `<section class="view"><div class="hero"><h2>اسحب الهمزة</h2><p>اسحب كل همزة إلى الفراغ المناسب لها. على الجوال: اضغط الهمزة ثم اضغط الفراغ.</p></div><div class="panel" id="dragBox"></div></section>`; }
+
+
+function drawFix() {
+  const box = document.getElementById("fixBox");
+  if (!box) return;
+
+  if (!fx) {
+    const source = WRONG_SET.filter(([w, p]) =>
+      ALL.some(x =>
+        x.w === w &&
+        x.p === p &&
+        (selectedRuleId === "all" || x.r.id === selectedRuleId)
+      )
+    );
+
+    if (!source.length) {
+      box.innerHTML = `
+        <div class="final">
+          <h2>لا توجد أسئلة لهذه القاعدة حاليًا</h2>
+          <a class="btn" href="#choose-game-fix">اختر قاعدة أخرى</a>
+        </div>
+      `;
+      return;
+    }
+
+    fx = {
+      items: shuffle(source).slice(0, 6).map(([w, p, bad]) => ({
+        w,
+        p,
+        bad,
+        a: [...w][p],
+        wrong: [...w].map((c, k) => k === p ? bad : c).join("")
+      })),
+      i: 0,
+      score: 0,
+      phase: "find",
+      solved: false,
+      msg: "",
+      type: ""
+    };
+  }
+
+  if (fx.i >= fx.items.length) {
+    const max = fx.items.length * 10;
+
+    box.innerHTML = `
+      <div class="final">
+        <div class="trophy">${fx.score >= max * .7 ? "🏆" : "⭐"}</div>
+        <h2>نتيجتك: ${fx.score} من ${max}</h2>
+        <button class="btn" id="fixAgain">العب مرة أخرى</button>
+      </div>
+    `;
+
+    document.getElementById("fixAgain").onclick = () => {
+      fx = null;
+      drawFix();
+    };
+
+    if (fx.score >= max * .7) confetti();
+    return;
+  }
+
+  const q = fx.items[fx.i];
+  const word = fx.solved ? q.w : q.wrong;
+
+  const letters = [...word].map((c, k) =>
+    `<span class="letter${k === q.p && fx.phase === "fix" && !fx.solved ? " err" : ""}" data-k="${k}">${c}</span>`
+  ).join("");
+
+  let controls;
+
+  if (fx.phase === "find") {
+    controls = `<div class="hint">اضغط على الحرف الخاطئ</div>`;
+  } else {
+    if (!q.opts) {
+      q.opts = shuffle([
+        q.a,
+        ...shuffle(HAMZAS.filter(h => h !== q.a && h !== q.bad)).slice(0, 2)
+      ]);
+    }
+
+    controls = `
+      <div class="hint">اختر الهمزة الصحيحة</div>
+      <div class="opts">
+        ${q.opts.map(g => `<button class="opt" data-g="${g}">${g}</button>`).join("")}
+      </div>
+    `;
+  }
+
+  box.innerHTML = `
+    <div class="score-line">
+      <span>كلمة ${fx.i + 1} من ${fx.items.length}</span>
+      <span>النقاط: ${fx.score}</span>
+    </div>
+
+    <div class="progress">
+      <div style="width:${(fx.i / fx.items.length) * 100}%"></div>
+    </div>
+
+    <div class="word letters">${letters}</div>
+    ${controls}
+    <div class="feedback ${fx.type}">${fx.msg}</div>
+  `;
+
+  if (fx.phase === "find") {
+    box.querySelectorAll(".letter").forEach(el => {
+      el.onclick = () => {
+        if (+el.dataset.k === q.p) {
+          fx.phase = "fix";
+          fx.msg = "أحسنت، هذا هو الحرف الخاطئ";
+          fx.type = "ok";
+        } else {
+          fx.msg = "هذا الحرف صحيح، ابحث عن الخطأ";
+          fx.type = "no";
+        }
+
+        drawFix();
+      };
+    });
+  } else {
+    box.querySelectorAll(".opt").forEach(b => {
+      b.onclick = () => {
+        if (fx.solved) return;
+
+        if (b.dataset.g === q.a) {
+          sfx(true);
+          speakWord(q.w);
+
+          fx.solved = true;
+          fx.score += 10;
+          fx.msg = "صحيح! +10 ✨";
+          fx.type = "ok";
+
+          drawFix();
+
+          setTimeout(() => {
+            fx.i++;
+            fx.phase = "find";
+            fx.solved = false;
+            fx.msg = "";
+            fx.type = "";
+            drawFix();
+          }, 1400);
+        } else {
+          fx.msg = "ليست الهمزة الصحيحة، جرّب مرة أخرى";
+          fx.type = "no";
+          sfx(false);
+          drawFix();
+        }
+      };
+    });
+  }
+}
+
+
+
+function drawDrag() {
+  const box = document.getElementById("dragBox");
+  if (!box) return;
+
+  if (!dg) {
+    const source = selectedRuleId === "all"
+      ? ALL
+      : ALL.filter(x => x.r.id === selectedRuleId);
+
+    if (!source.length) {
+      box.innerHTML = `
+        <div class="final">
+          <h2>لا توجد أسئلة لهذه القاعدة حاليًا</h2>
+          <a class="btn" href="#choose-game-drag">اختر قاعدة أخرى</a>
+        </div>
+      `;
+      return;
+    }
+
+    const picks = shuffle(source).slice(0, 4);
+
+    dg = {
+      picks,
+      chips: shuffle(picks.map(x => x.a)),
+      used: [],
+      filled: {},
+      sel: null,
+      score: 0,
+      msg: "",
+      type: "",
+      bad: null
+    };
+  }
+
+  if (Object.keys(dg.filled).length === dg.picks.length) {
+    const max = dg.picks.length * 10;
+
+    box.innerHTML = `
+      <div class="final">
+        <div class="trophy">${dg.score === max ? "🏆" : "⭐"}</div>
+        <h2>نتيجتك: ${dg.score} من ${max}</h2>
+        <button class="btn" id="dragAgain">العب مرة أخرى</button>
+      </div>
+    `;
+
+    document.getElementById("dragAgain").onclick = () => {
+      dg = null;
+      drawDrag();
+    };
+
+    if (dg.score === max) confetti();
+    return;
+  }
+
+  const chips = dg.chips.map((g, i) =>
+    dg.used.includes(i)
+      ? `<div class="chip used">${g}</div>`
+      : `<div class="chip${dg.sel === i ? " sel" : ""}" draggable="true" data-chip="${i}">${g}</div>`
+  ).join("");
+
+  const words = dg.picks.map((x, i) => {
+    const inner = [...x.w].map((c, k) =>
+      k !== x.p
+        ? c
+        : dg.filled[i]
+          ? `<span class="slot ok">${dg.filled[i]}</span>`
+          : `<span class="slot${dg.bad === i ? " bad" : ""}" data-slot="${i}"></span>`
+    ).join("");
+
+    return `<div class="drag-word"><div class="word">${inner}</div></div>`;
+  }).join("");
+
+  box.innerHTML = `
+    <div class="hint">اسحب الهمزة إلى الفراغ المناسب، أو اضغط الهمزة ثم الفراغ</div>
+    <div class="chips">${chips}</div>
+    <div class="drag-grid">${words}</div>
+    <div class="feedback ${dg.type}">${dg.msg}</div>
+  `;
+
+  box.querySelectorAll(".chip[data-chip]").forEach(el => {
+    el.addEventListener("dragstart", e => {
+      e.dataTransfer.setData("text/plain", el.dataset.chip);
+    });
+
+    el.onclick = () => {
+      const c = +el.dataset.chip;
+      dg.sel = dg.sel === c ? null : c;
+      dg.msg = "";
+      drawDrag();
+    };
+  });
+
+  box.querySelectorAll(".slot:not(.ok)").forEach(el => {
+    el.addEventListener("dragover", e => e.preventDefault());
+
+    el.addEventListener("drop", e => {
+      e.preventDefault();
+      placeDrag(+el.dataset.slot, +e.dataTransfer.getData("text/plain"));
+    });
+
+    el.onclick = () => {
+      if (dg.sel !== null) {
+        placeDrag(+el.dataset.slot, dg.sel);
+      }
+    };
+  });
+}
+
+
+function placeDrag(slot, chip) {
+  if (!dg || dg.filled[slot] || dg.used.includes(chip)) return;
+
+  const glyph = dg.chips[chip];
+
+  dg.sel = null;
+  dg.bad = null;
+
+  if (glyph === dg.picks[slot].a) {
+    sfx(true);
+    speakWord(dg.picks[slot].w);
+
+    dg.filled[slot] = glyph;
+    dg.used.push(chip);
+    dg.score += 10;
+    dg.msg = "أحسنت! +10";
+    dg.type = "ok";
+  } else {
+    sfx(false);
+    dg.bad = slot;
+    dg.msg = "هذه ليست الهمزة المناسبة لهذه الكلمة";
+    dg.type = "no";
+  }
+
+  drawDrag();
+}
+
+
+let audioCtx = null;
+function tone(freq, dur, type, t) {
+  const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+  o.type = type; o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.exponentialRampToValueAtTime(0.25, t + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(audioCtx.destination);
+  o.start(t); o.stop(t + dur + 0.05);
+}
+// short built-in sounds: a rising chime for correct, a low buzz for wrong
+function sfx(ok) {
+  try {
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+    const t0 = audioCtx.currentTime;
+    if (ok) [523.25, 659.25, 783.99].forEach((f, i) => tone(f, .18, "sine", t0 + i * .09));
+    else [330, 262].forEach((f, i) => tone(f, .22, "triangle", t0 + i * .16));
+  } catch (e) {}
+}
+// reads the word aloud using the device's Arabic voice, if one is installed
+function speakWord(w) {
+  if (!("speechSynthesis" in window)) return;
+
+  speechSynthesis.cancel();
+
+  const u = new SpeechSynthesisUtterance(w);
+
+  u.lang = "ar";
+  u.rate = 0.95;
+  u.pitch = 1;
+  u.volume = 1;
+
+  const voices = speechSynthesis.getVoices();
+
+  const arabicVoice = voices.find(v =>
+    /^ar(-|$)/i.test(v.lang) &&
+    /Microsoft|Google/i.test(v.name)
+  ) || voices.find(v =>
+    /^ar(-|$)/i.test(v.lang)
+  );
+
+  if (arabicVoice) {
+    u.voice = arabicVoice;
+    u.lang = arabicVoice.lang;
+  }
+
+  speechSynthesis.speak(u);
+}
+
+const DEV_NAME = "محمد أبو لطيفة";
+function renderDev() {
+  const t = document.getElementById("devTop");
+  const f = document.getElementById("devFoot");
+
+  if (t) {
+    t.innerHTML = `
+      <span class="dev-badge">
+        <span class="spark">✦</span>
+        تطوير: ${DEV_NAME}
+        <span class="spark">✦</span>
+      </span>
+    `;
+  }
+
+  if (f) {
+    f.innerHTML = `
+      <a href="#about" style="color:var(--gold);font-weight:800">
+        عن الموقع
+      </a>
+      · تطوير ${DEV_NAME}
+    `;
+  }
+}
+
+
+function aboutPage() {
+  return `
+    <section class="view about-page">
+
+      <div class="hero about-hero">
+        <h2>عن الموقع</h2>
+        <p>
+          منصة تعليمية تفاعلية لتعلّم قواعد الهمزة
+          والتدرّب عليها بطريقة ممتعة ومبسّطة
+        </p>
+      </div>
+
+      <section class="about-panel">
+        <h2>ماذا يقدم الموقع؟</h2>
+
+        <div class="about-features">
+
+          <div class="about-feature">
+            <span>📖</span>
+            <div>
+              <strong>شرح القواعد</strong>
+              <p>ست قواعد للهمزة مع الشرح والأمثلة والاختبارات القصيرة</p>
+            </div>
+          </div>
+
+          <div class="about-feature">
+            <span>🎮</span>
+            <div>
+              <strong>ألعاب تعليمية</strong>
+              <p>تسع ألعاب تفاعلية تساعد على فهم القواعد وتثبيتها</p>
+            </div>
+          </div>
+
+          <div class="about-feature">
+            <span>🔊</span>
+            <div>
+              <strong>التفاعل الصوتي</strong>
+              <p>أصوات للإجابات ونطق الكلمات لتجربة تعليمية أفضل</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <section class="about-dev">
+        <div class="dev-title">مطور الموقع</div>
+
+        <img class="dev-img"
+          src="developer.jpg"
+          alt="صورة المطوّر">
+
+        <h2>محمد أبو لطيفة</h2>
+        <p class="dev-role">طالب الصف الثامن (ه)</p>
+
+        <div class="dev-line"></div>
+
+        <p class="dev-description">
+          تصميم وتطوير الموقع
+        </p>
+      </section>
+
+    </section>
+  `;
+}
+
+
+const PARAS = {
+  "سهل": [
+    ["قال النبي صلى الله عليه وسلم: إني أقوم في الصلاة، ثم ", {w:"أريد", p:0, v:"أُرِيدُ"}, " أن ", {w:"أطوّل", p:0, v:"أُطَوِّلَ"}, " فيها، ", {w:"فأسمع", p:1, v:"فَأَسْمَعَ"}, " بكاء الصبي، ", {w:"فأتجوّز", p:1, v:"فَأَتَجَوَّزَ"}, " في صلاتي كراهية أن ", {w:"أشق", p:0, v:"أَشُقَّ"}, " على أمه."],
+    ["ذهب سامي إلى السوق مع ", {w:"أبيه", p:0, v:"أَبِيهِ"}, ". وفي الطريق ", {w:"أكل", p:0, v:"أَكَلَ"}, " تفاحة حمراء، ثم شرب ", {w:"ماءً", p:2, v:"مَاءً"}, " باردًا من الثلاجة."]
+  ],
+  "متوسط": [
+    [{w:"أسلم", p:0, v:"أَسْلَمَ"}, " سعيد بن عامر قبيل فتح خيبر، ومنذ عانق ال", {w:"إسلام", p:0, v:"الإِسْلامَ"}, "، وبايع الرسول صلى الله عليه وسلم، ظلّ سيفًا مسلولًا بين يدي خليفتيه ", {w:"أبي", p:0, v:"أَبِي"}, " بكر الصديق وعمر بن الخطاب."],
+    ["أحبائي ", {w:"أطفال", p:0, v:"أَطْفَالَ"}, " العالم، السلام عليكم ورحمة الله وبركاته. ", {w:"أكتب", p:0, v:"أَكْتُبُ"}, " إليكم، أطفال العالم، من القدس الشريف، عاصمة الحلم الفلسطيني، و", {w:"أنتم", p:0, v:"أَنْتُمْ"}, " تغدون في الحقول، تسابقون الفراش، وتعانقون الجمال، وتحتضنون رايات بلادكم خفاقة عالية."],
+    ["قرأ الطلاب رسالة قصيرة في الإذاعة المدرسية صباح الخميس، ثم سألت المعلمة عن رأي كل طالب فيها. أعجب الجميع بفكرة الرسالة، و", {w:"بدأ", p:2, v:"بَدَأَ"}, " كل واحد يكتب ملاحظاته ب", {w:"مسؤولية", p:2, v:"مَسْؤُولِيَّةٍ"}, "."]
+  ],
+  "صعب": [
+    [{w:"إنّ", p:0, v:"إِنَّ"}, " الابتسامة لغة يفهمها العالم أجمع، تحدث في ومضة عين، ولكن ", {w:"أثرها", p:0, v:"أَثَرُهَا"}, " يدوم طويلًا، حيث تعدّ سببًا من أسباب السعادة والنجاح، وتقوّي الروابط الاجتماعية، وتسهم في حل المشكلات، وكأنها المفتاح السحري للقلوب المغلقة، ليتك تبتسم على الرغم من شعورك بالألم والحزن. اخرج إلى الشارع، ", {w:"وابدأ", p:4, v:"وَابْدَأْ"}, " ", {w:"بإلقاء", p:1, v:"بِإِلْقَاءِ"}, " تحية الصباح، فسوف تجد ", {w:"أنّ", p:0, v:"أَنَّ"}, " الحياة حلوة؛ ", {w:"لأنك", p:1, v:"لِأَنَّكَ"}, " إذا ", {w:"أظهرت", p:0, v:"أَظْهَرْتَ"}, " ابتسامتك، فلعلك تلقى صدىً جميلًا وردًّا ", {w:"إيجابيًّا", p:0, v:"إِيجَابِيًّا"}, " تجاهك."],
+    ["ال", {w:"إصلاح", p:0, v:"الإِصْلاحُ"}, " سنّة الله في ال", {w:"أرض", p:0, v:"الأَرْضِ"}, "، ورسالة الأنبياء والرسل، وهو نقيض الفساد، الذي يعني الاستغلال غير القانوني للسلطة السياسية، أو ال", {w:"إدارية", p:0, v:"الإِدَارِيَّةِ"}, "، أو الوظيفية، ما يؤدي إلى الضرر العام ", {w:"للأمة", p:2, v:"لِلأُمَّةِ"}, " جميعها، ويعيق تحقيق ", {w:"أهدافها", p:0, v:"أَهْدَافَهَا"}, " ووجودها."],
+    ["وإذا عرفنا ", {w:"أنّ", p:0, v:"أَنَّ"}, " ال", {w:"إنسان", p:0, v:"الإِنْسانَ"}, " هو المخلوق الوحيد الذي يبتسم، فحريٌّ بنا أن ندرك فوائد الابتسامة، حيث ", {w:"يؤكّد", p:1, v:"يُؤَكِّدُ"}, " العلماء ", {w:"أنّ", p:0, v:"أَنَّ"}, " لها فوائد شتى يعود ", {w:"أثرها", p:0, v:"أَثَرُهَا"}, " على الفرد والمجتمع."]
+  ]
+};
+
+const HINT = {
+  "أ": "تُكتب الهمزة على ألف إذا كانت مع الفتحة، أو كان قبلها فتحة.",
+  "ؤ": "تُكتب الهمزة على واو إذا كانت مع الضمة، أو كان قبلها ضمة.",
+  "ئ": "تُكتب الهمزة على ياء إذا كانت مع الكسرة، أو كان قبلها كسرة.",
+  "ء": "تُكتب الهمزة على السطر، وغالبًا تأتي بعد ألف أو واو أو ياء ساكنة.",
+  "إ": "تُكتب الهمزة مكسورة إذا كانت في أول الكلمة ومعها كسرة.",
+  "آ": "تُكتب الهمزة بالمدّ إذا تلتها ألف.",
+  "ا": "هذه همزة وصل، ولا تُكتب بهمزة."
+};
+
+let pa = null;
+const paraOptionsCount = level => level === "سهل" ? 3 : level === "متوسط" ? 4 : 6;
+const makeOpts = (a, n) => shuffle([a, ...shuffle(HAMZAS.filter(h => h !== a)).slice(0, n - 1)]);
+
+function resetPara(level, idx) {
+  pa = {
+    level,
+    idx,
+    vals: {},
+    ok: {},
+    active: null,
+    score: 0,
+    opts: {},
+    attempts: {},
+    showHint: {},
+    msg: "",
+    msgType: "",
+    celebrated: false
+  };
+}
+
+function paraPage() { return `<section class="view"><div class="hero"><h2>أكمل النص</h2><p>اختر المستوى ثم الفقرة، واضغط كل فراغ واختر الهمزة الصحيحة. إذا أخطأت مرتين يظهر لك تلميح.</p></div><div class="panel" id="paraBox"></div></section>`; }
+
+
+function drawPara() {
+  const box = document.getElementById("paraBox");
+  if (!box) return;
+
+  if (!pa) resetPara("سهل", 0);
+
+  const toks = PARAS[pa.level][pa.idx];
+
+  const blanks = toks
+    .filter(t => typeof t !== "string")
+    .map(t => ({
+      ...t,
+      a: [...t.w][t.p],
+      rule: ALL.find(x => x.w === t.w && x.p === t.p)?.r.id
+    }))
+    .filter(t =>
+      selectedRuleId === "all" || t.rule === selectedRuleId
+    );
+
+  const blankMap = new Map();
+  let blankIndex = 0;
+
+  toks.forEach((t, tokenIndex) => {
+    if (typeof t !== "string") {
+      const rule = ALL.find(x => x.w === t.w && x.p === t.p)?.r.id;
+
+      if (selectedRuleId === "all" || rule === selectedRuleId) {
+        blankMap.set(tokenIndex, blankIndex++);
+      }
+    }
+  });
+
+  const n = blanks.length;
+  const found = Object.keys(pa.ok).filter(k => pa.ok[k]).length;
+  const done = n > 0 && found === n;
+
+  let body = "";
+
+  toks.forEach((t, tokenIndex) => {
+    if (typeof t === "string") {
+      body += t;
+      return;
+    }
+
+    const i = blankMap.get(tokenIndex);
+
+    if (i === undefined) {
+      body += t.w;
+      return;
+    }
+
+    const v = pa.vals[i];
+    const cls = pa.ok[i]
+      ? " ok"
+      : v
+        ? " bad"
+        : pa.active === i
+          ? " active"
+          : "";
+
+    body += [...t.w].map((c, k) =>
+      k === t.p
+        ? `<span class="pblank${cls}" data-i="${i}">${pa.ok[i] ? blanks[i].a : (v || "ـ")}</span>`
+        : c
+    ).join("");
+  });
+
+  const levelBtns = Object.keys(PARAS).map(l =>
+    `<button class="btn${l === pa.level ? "" : " alt"} lvl" data-level="${l}" style="margin-top:0">${l}</button>`
+  ).join(" ");
+
+  const paraBtns = PARAS[pa.level].map((_, k) =>
+    `<button class="btn${k === pa.idx ? "" : " alt"} fp" data-idx="${k}" style="margin-top:0">فقرة ${k + 1}</button>`
+  ).join(" ");
+
+  let controls = "";
+
+  if (!done && pa.active !== null) {
+    const i = pa.active;
+
+    pa.opts[i] = pa.opts[i] || makeOpts(
+      blanks[i].a,
+      paraOptionsCount(pa.level)
+    );
+
+    const hintShown = pa.showHint[i] || (pa.attempts[i] || 0) >= 2;
+
+    controls = `
+      <div id="paraControls">
+        <div class="hint">اختر الهمزة للفراغ الذي اخترته</div>
+        ${hintShown
+          ? `<div class="tip">💡 ${HINT[blanks[i].a]}</div>`
+          : `<div style="text-align:center"><button class="btn alt hintBtn" style="margin-top:0">💡 تلميح</button></div>`
+        }
+        <div class="chips">
+          ${pa.opts[i].map(g => `<button class="chip" data-g="${g}">${g}</button>`).join("")}
+        </div>
+      </div>
+    `;
+  } else if (!done) {
+    controls = `<div class="hint">اضغط على أي فراغ لتبدأ</div>`;
+  }
+
+  const msgClass = pa.msgType === "no" ? "no" : "ok";
+
+  const nextBtn = done && PARAS[pa.level][pa.idx + 1]
+    ? `<button class="btn" id="nextP">الفقرة التالية ←</button>`
+    : "";
+
+  box.innerHTML = `
+    <div class="chips" style="margin:0 0 .6rem">${levelBtns}</div>
+    <div class="chips" style="margin:0 0 1rem">${paraBtns}</div>
+
+    <div class="score-line">
+      <span>بقي ${n - found} فراغ</span>
+      <span>النقاط: ${pa.score}</span>
+    </div>
+
+    <div class="progress">
+      <div style="width:${n ? (found / n) * 100 : 100}%"></div>
+    </div>
+
+    <div class="para">${body}</div>
+    ${controls}
+
+    <div class="feedback ${msgClass}">
+      ${done ? `أحسنت! أكملت الفقرة بنتيجة ${pa.score} من ${n}` : pa.msg}
+    </div>
+
+    ${nextBtn}
+  `;
+
+  if (done && !pa.celebrated) {
+    pa.celebrated = true;
+    confetti();
+  }
+
+  if (pa.active !== null && !done) {
+    const ctl = document.getElementById("paraControls");
+    if (ctl) {
+      setTimeout(() =>
+        ctl.scrollIntoView({ behavior: "smooth", block: "center" }), 60
+      );
+    }
+  }
+
+  box.querySelectorAll(".lvl").forEach(b => {
+    b.onclick = () => {
+      resetPara(b.dataset.level, 0);
+      drawPara();
+    };
+  });
+
+  box.querySelectorAll(".fp").forEach(b => {
+    b.onclick = () => {
+      resetPara(pa.level, +b.dataset.idx);
+      drawPara();
+    };
+  });
+
+  const nb = document.getElementById("nextP");
+
+  if (nb) {
+    nb.onclick = () => {
+      resetPara(pa.level, pa.idx + 1);
+      drawPara();
+    };
+  }
+
+  box.querySelectorAll(".pblank").forEach(el => {
+    el.onclick = () => {
+      const i = +el.dataset.i;
+      if (!pa.ok[i]) {
+        pa.active = i;
+        pa.msg = "";
+        drawPara();
+      }
+    };
+  });
+
+  box.querySelectorAll(".hintBtn").forEach(b => {
+    b.onclick = () => {
+      pa.showHint[pa.active] = true;
+      drawPara();
+    };
+  });
+
+  box.querySelectorAll(".chip").forEach(el => {
+    el.onclick = () => {
+      const i = pa.active;
+      if (i === null) return;
+
+      const g = el.dataset.g;
+      pa.vals[i] = g;
+
+      if (g === blanks[i].a) {
+        pa.ok[i] = true;
+        pa.score++;
+        pa.active = null;
+        pa.msg = "أحسنت! ✨";
+        pa.msgType = "ok";
+
+        sfx(true);
+        speakWord(blanks[i].v || blanks[i].w);
+      } else {
+        pa.attempts[i] = (pa.attempts[i] || 0) + 1;
+        pa.msg = "ليست الهمزة الصحيحة، جرّب مرة أخرى";
+        pa.msgType = "no";
+
+        sfx(false);
+      }
+
+      drawPara();
+    };
+  });
+}
+
+
+let og = null;
+function orderPage() {
+  return `<section class="view"><div class="hero"><h2>رتّب الكلمة</h2><p>اضغط الحروف بالترتيب الصحيح لتكوين الكلمة. إذا أخطأت تبدأ الكلمة من جديد.</p></div><div class="panel" id="orderBox"></div></section>`;
+}
+function setupOrder() {
+  const letters = [...og.words[og.i]];
+  let order;
+  do { order = shuffle(letters.map((_, k) => k)); } while (letters.length > 1 && order.every((v, k) => v === k));
+  og.tiles = order; og.placed = []; og.wrongFlag = false;
+}
+
+
+function drawOrder() {
+  const box = document.getElementById("orderBox");
+  if (!box) return;
+
+  if (!og) {
+    const source = selectedRuleId === "all"
+      ? ALL
+      : ALL.filter(x => x.r.id === selectedRuleId);
+
+    const words = shuffle(
+      source.filter(x => /^[\u0621-\u064A]+$/.test(x.w))
+    ).slice(0, 6).map(x => x.w);
+
+    if (!words.length) {
+      box.innerHTML = `
+        <div class="final">
+          <h2>لا توجد كلمات مناسبة لهذه القاعدة حاليًا</h2>
+          <a class="btn" href="#choose-game-order">اختر قاعدة أخرى</a>
+        </div>
+      `;
+      return;
+    }
+
+    og = {
+      words,
+      i: 0,
+      score: 0,
+      res: [],
+      msg: "",
+      type: ""
+    };
+
+    setupOrder();
+  }
+
+  const total = og.words.length;
+
+  if (og.i >= total) {
+    const max = total * 10;
+    saveResult("رتّب الكلمة", og.score, max);
+
+    const rows = og.res.map(r =>
+      `<div class="ord-row ${r.ok ? "ok" : "no"}">
+        <span>${r.ok ? "✔" : "✘"}</span>
+        <span>${r.w}</span>
+      </div>`
+    ).join("");
+
+    box.innerHTML = `
+      <div class="final">
+        <div class="trophy">${og.score >= max * .7 ? "🏆" : "⭐"}</div>
+        <h2>النتيجة: ${og.score} من ${max}</h2>
+        ${rows}
+        <p>${og.score === max ? "ممتاز! ترتيب كل الكلمات صحيح." : og.score >= max * .5 ? "أحسنت، راجع الكلمات التي أخطأت فيها." : "حاول مرة أخرى، وستتحسن."}</p>
+        <button class="btn" id="ordAgain">العب مرة أخرى</button>
+      </div>
+    `;
+
+    document.getElementById("ordAgain").onclick = () => {
+      og = null;
+      drawOrder();
+    };
+
+    if (og.score >= max * .7) confetti();
+    return;
+  }
+
+  const w = og.words[og.i], letters = [...w];
+
+  const slots = letters.map((_, k) =>
+    og.placed[k] !== undefined
+      ? `<span class="oslot${og.placed[k] === k ? " ok" : ""}">${letters[og.placed[k]]}</span>`
+      : `<span class="oslot"></span>`
+  ).join("");
+
+  const tiles = og.tiles.map(idx =>
+    og.placed.includes(idx)
+      ? `<span class="tile gone"></span>`
+      : `<button class="tile" data-idx="${idx}">${letters[idx]}</button>`
+  ).join("");
+
+  box.innerHTML = `
+    <div class="score-line">
+      <span>الكلمة ${og.i + 1} من ${total}</span>
+      <span>النقاط: ${og.score}</span>
+    </div>
+    <div class="progress">
+      <div style="width:${(og.i / total) * 100}%"></div>
+    </div>
+    <div class="oslots">${slots}</div>
+    <div class="tiles">${tiles}</div>
+    <div style="text-align:center;margin-top:.8rem">
+      <button class="btn alt" id="ordUndo" style="margin-top:0">تراجع</button>
+    </div>
+    <div class="feedback ${og.type}">${og.msg}</div>
+  `;
+
+  box.querySelectorAll(".tile").forEach(b => b.onclick = () => {
+    og.placed.push(+b.dataset.idx);
+    og.msg = "";
+
+    if (og.placed.length === letters.length) {
+      const correct = og.placed.every((v, k) => v === k);
+
+      if (correct) {
+        const pts = og.wrongFlag ? 5 : 10;
+        og.score += pts;
+        og.res.push({ w, ok: !og.wrongFlag });
+        og.msg = `أحسنت! +${pts} نقاط`;
+        og.type = "ok";
+        sfx(true);
+        speakWord(w);
+        drawOrder();
+
+        setTimeout(() => {
+          og.i++;
+          setupOrder();
+          og.msg = "";
+          drawOrder();
+        }, 1100);
+        return;
+      }
+
+      og.wrongFlag = true;
+      og.msg = "الترتيب غير صحيح، حاول مرة أخرى";
+      og.type = "no";
+      sfx(false);
+      drawOrder();
+
+      setTimeout(() => {
+        og.placed = [];
+        og.msg = "";
+        drawOrder();
+      }, 900);
+      return;
+    }
+
+    drawOrder();
+  });
+
+  const undo = document.getElementById("ordUndo");
+  if (undo) undo.onclick = () => {
+    og.placed.pop();
+    og.msg = "";
+    drawOrder();
+  };
+}
+
+// ---------- saved results (on this device) ----------
+const STORE_KEY = "dawha-results";
+function getResults() { try { return JSON.parse(localStorage.getItem(STORE_KEY) || "[]"); } catch (e) { return []; } }
+function saveResult(game, score, total) {
+  try {
+    const r = getResults();
+    r.unshift({ game, score, total, date: new Date().toLocaleDateString("ar") });
+    localStorage.setItem(STORE_KEY, JSON.stringify(r.slice(0, 30)));
+  } catch (e) {}
+}
+const pureWord = w => /^[\u0621-\u064A]+$/.test(w);
+
+function isValidHamzaQuestion(x) {
+  if (!x || !pureWord(x.w)) return false;
+
+  const chars = [...x.w];
+
+  return (
+    Number.isInteger(x.p) &&
+    x.p >= 0 &&
+    x.p < chars.length &&
+    x.a === chars[x.p] &&
+    Object.hasOwn(CL_MAP, x.a) &&
+    x.r?.id !== "tanween"
+  );
+}
+
+const hlWord = (w, p) => [...w].map((c, k) => k === p ? `<mark>${c}</mark>` : c).join("");
+
+// ---------- الصح أم الخطأ ----------
+let tf = null;
+function tfPage() { return `<section class="view"><div class="hero"><h2>الصح أم الخطأ</h2><p>اقرأ الكلمة واحكم: هل كتابتها صحيحة؟</p></div><div class="panel" id="tfBox"></div></section>`; }
+
+function drawTF() {
+  const box = document.getElementById("tfBox");
+  if (!box) return;
+
+  if (!tf) {
+    const source = WRONG_SET.filter(([w, p]) =>
+      ALL.some(x =>
+        x.w === w &&
+        x.p === p &&
+        (selectedRuleId === "all" || x.r.id === selectedRuleId)
+      )
+    );
+
+    if (!source.length) {
+      box.innerHTML = `
+        <div class="final">
+          <h2>لا توجد أسئلة لهذه القاعدة حاليًا</h2>
+          <a class="btn" href="#choose-game-truefalse">اختر قاعدة أخرى</a>
+        </div>
+      `;
+      return;
+    }
+
+    const picks = shuffle(source).slice(0, 8).map(([w, p, bad], i) => {
+      const isOk = i % 2 === 0;
+      const wrong = [...w].map((c, k) => k === p ? bad : c).join("");
+
+      return {
+        shown: isOk ? w : wrong,
+        ok: isOk,
+        fix: w
+      };
+    });
+
+    tf = {
+      q: picks,
+      i: 0,
+      score: 0,
+      msg: "",
+      type: ""
+    };
+  }
+
+  if (tf.i >= tf.q.length) {
+    const max = tf.q.length * 10;
+
+    saveResult("الصح أم الخطأ", tf.score * 10, max);
+
+    box.innerHTML = `
+      <div class="final">
+        <div class="trophy">
+          ${tf.score >= tf.q.length * .7 ? "🏆" : "⭐"}
+        </div>
+        <h2>النتيجة: ${tf.score * 10} من ${max}</h2>
+        <button class="btn" id="tfAgain">العب مرة أخرى</button>
+      </div>
+    `;
+
+    document.getElementById("tfAgain").onclick = () => {
+      tf = null;
+      drawTF();
+    };
+
+    if (tf.score >= tf.q.length * .7) confetti();
+    return;
+  }
+
+  const q = tf.q[tf.i];
+
+  box.innerHTML = `
+    <div class="score-line">
+      <span>كلمة ${tf.i + 1} من ${tf.q.length}</span>
+      <span>النقاط: ${tf.score * 10}</span>
+    </div>
+
+    <div class="progress">
+      <div style="width:${(tf.i / tf.q.length) * 100}%"></div>
+    </div>
+
+    <div class="word">${q.shown}</div>
+
+    <div class="opts">
+      <button class="opt" data-v="1">✔ صح</button>
+      <button class="opt" data-v="0">✘ خطأ</button>
+    </div>
+
+    <div class="feedback ${tf.type}">${tf.msg}</div>
+  `;
+
+  box.querySelectorAll(".opt").forEach(b => {
+    b.onclick = () => {
+      box.querySelectorAll(".opt").forEach(x => x.disabled = true);
+
+      const right = (b.dataset.v === "1") === q.ok;
+
+      if (right) {
+        tf.score++;
+        tf.msg = "أحسنت! ✨";
+        tf.type = "ok";
+        sfx(true);
+        speakWord(q.fix);
+      } else {
+        tf.msg = q.ok
+          ? "الكلمة صحيحة"
+          : `الكتابة الصحيحة: ${q.fix}`;
+
+        tf.type = "no";
+        sfx(false);
+      }
+
+      box.querySelector(`.opt[data-v="${b.dataset.v}"]`)
+        .classList.add(right ? "right" : "wrong");
+
+      box.querySelector(".feedback").textContent = tf.msg;
+
+      setTimeout(() => {
+        tf.i++;
+        tf.msg = "";
+        drawTF();
+      }, 1500);
+    };
+  });
+}
+
+// ---------- صنّف الهمزة ----------
+const CL_MAP = {
+  "أ": "على ألف",
+  "إ": "على ألف",
+  "آ": "على ألف",
+  "ؤ": "على واو",
+  "ئ": "على نبرة",
+  "ء": "على السطر"
+};let cl = null;
+function clPage() { return `<section class="view"><div class="hero"><h2>صنّف الهمزة</h2><p>انظر إلى الهمزة المظللة، واختر الحرف الذي تُكتب عليه.</p></div><div class="panel" id="clBox"></div></section>`; }
+
+function drawCL() {
+  const box = document.getElementById("clBox");
+  if (!box) return;
+
+  if (!cl) {
+    const classifyRules = RULES.filter(r =>
+      ["wasat", "wasat-special", "akhir"].includes(r.id)
+    );
+
+    const allQuestions = classifyRules.flatMap(r =>
+      r.items.map(([w, p]) => ({
+        r,
+        w,
+        p,
+        a: [...w][p]
+      }))
+    ).filter(x => pureWord(x.w) && CL_MAP[x.a]);
+
+    const pool = selectedRuleId === "all"
+      ? allQuestions
+      : allQuestions.filter(x => x.r.id === selectedRuleId);
+
+    if (!pool.length) {
+      box.innerHTML = `
+        <div class="final">
+          <h2>لا توجد أسئلة تصنيف لهذه القاعدة حاليًا</h2>
+          <a class="btn" href="#choose-game-classify">اختر قاعدة أخرى</a>
+        </div>
+      `;
+      return;
+    }
+
+    cl = {
+      q: shuffle(pool).slice(0, 8),
+      i: 0,
+      score: 0,
+      msg: "",
+      type: ""
+    };
+  }
+
+  if (cl.i >= cl.q.length) {
+    const max = cl.q.length * 10;
+
+    saveResult("صنّف الهمزة", cl.score * 10, max);
+
+    box.innerHTML = `
+      <div class="final">
+        <div class="trophy">
+          ${cl.score >= cl.q.length * .7 ? "🏆" : "⭐"}
+        </div>
+        <h2>النتيجة: ${cl.score * 10} من ${max}</h2>
+        <button class="btn" id="clAgain">العب مرة أخرى</button>
+      </div>
+    `;
+
+    document.getElementById("clAgain").onclick = () => {
+      cl = null;
+      drawCL();
+    };
+
+    if (cl.score >= cl.q.length * .7) confetti();
+    return;
+  }
+
+  const q = cl.q[cl.i];
+
+  box.innerHTML = `
+    <div class="score-line">
+      <span>كلمة ${cl.i + 1} من ${cl.q.length}</span>
+      <span>النقاط: ${cl.score * 10}</span>
+    </div>
+
+    <div class="progress">
+      <div style="width:${(cl.i / cl.q.length) * 100}%"></div>
+    </div>
+
+    <div class="word">${hlWord(q.w, q.p)}</div>
+
+    <div class="opts">
+      ${[...new Set(Object.values(CL_MAP))].map(l =>
+        `<button class="opt" data-l="${l}">${l}</button>`
+      ).join("")}
+    </div>
+
+    <div class="feedback ${cl.type}">${cl.msg}</div>
+  `;
+
+  box.querySelectorAll(".opt").forEach(b => {
+    b.onclick = () => {
+      box.querySelectorAll(".opt").forEach(x => x.disabled = true);
+
+      const right = b.dataset.l === CL_MAP[q.a];
+
+      if (right) {
+        cl.score++;
+        cl.msg = "أحسنت! ✨";
+        cl.type = "ok";
+        sfx(true);
+        speakWord(q.w);
+      } else {
+        cl.msg = `الصحيح: ${CL_MAP[q.a]}`;
+        cl.type = "no";
+        sfx(false);
+      }
+
+      b.classList.add(right ? "right" : "wrong");
+      box.querySelector(".feedback").textContent = cl.msg;
+
+      setTimeout(() => {
+        cl.i++;
+        cl.msg = "";
+        drawCL();
+      }, 1500);
+    };
+  });
+}
+
+
+// ---------- السباق على الوقت ----------
+let rc = null, rcTimer = null;
+function rcPage() { return `<section class="view"><div class="hero"><h2>السباق على الوقت</h2><p>أكمل أكبر عدد ممكن من الهمزات خلال 60 ثانية.</p></div><div class="panel" id="rcBox"></div></section>`; }
+
+function rcNext() {
+  const allQuestions = ALL.filter(x =>
+    pureWord(x.w) &&
+    Number.isInteger(x.p) &&
+    x.p >= 0 &&
+    x.p < [...x.w].length &&
+    x.a === [...x.w][x.p] &&
+    ["أ", "إ", "آ", "ؤ", "ئ", "ء"].includes(x.a)
+  );
+
+  const pool = selectedRuleId === "all"
+    ? allQuestions
+    : allQuestions.filter(x => x.r.id === selectedRuleId);
+
+  if (!pool.length) {
+    rc.done = true;
+    return;
+  }
+
+  rc.cur = pool[Math.floor(Math.random() * pool.length)];
+  rc.opts = makeOpts(rc.cur.a, 3);
+}
+
+function startRC() {
+  if (rcTimer) clearInterval(rcTimer);
+  rc = { left: 60, score: 0, wrong: 0, done: false, msg: "", type: "" };
+  rcNext();
+  rcTimer = setInterval(() => {
+    rc.left--;
+    if (rc.left <= 0) { rc.left = 0; rc.done = true; clearInterval(rcTimer); saveResult("السباق على الوقت", rc.score, rc.score + rc.wrong); }
+    drawRC();
+  }, 1000);
+  drawRC();
+}
+function drawRC() {
+  const box = document.getElementById("rcBox");
+  if (!box || !rc) return;
+  if (rc.done) {
+    box.innerHTML = `<div class="final"><div class="trophy">⏱️</div><h2>انتهى الوقت</h2><p>إجابات صحيحة: ${rc.score} · إجابات خاطئة: ${rc.wrong}</p><button class="btn" id="rcAgain">العب مرة أخرى</button></div>`;
+    document.getElementById("rcAgain").onclick = startRC;
+    if (rc.score >= 10) confetti();
+    return;
+  }
+  box.innerHTML = `
+    <div class="score-line"><span>الوقت: ${rc.left} ث</span><span>صحيح: ${rc.score} · خطأ: ${rc.wrong}</span></div>
+    <div class="progress"><div style="width:${(rc.left / 60) * 100}%"></div></div>
+    <div class="word fill">${[...rc.cur.w].map((c, k) => k === rc.cur.p ? `<span class="blank"></span>` : c).join("")}</div>
+    <div class="opts">${rc.opts.map(g => `<button class="opt" data-g="${g}">${g}</button>`).join("")}</div>
+    <div class="feedback ${rc.type}">${rc.msg}</div>`;
+  box.querySelectorAll(".opt").forEach(b => b.onclick = () => {
+    if (rc.done) return;
+    const right = b.dataset.g === rc.cur.a;
+    if (right) { rc.score++; rc.msg = "✔"; rc.type = "ok"; sfx(true); }
+    else { rc.wrong++; rc.msg = `✘ الصحيح: ${rc.cur.a}`; rc.type = "no"; sfx(false); }
+    rcNext();
+    drawRC();
+  });
+}
+
+// ---------- نتائجي ----------
+function resultsPage() {
+  const r = getResults();
+  const rows = r.length
+    ? r.map(x => `<div class="ord-row ok"><span>${x.game}</span><span>${x.score} من ${x.total}</span><span>${x.date}</span></div>`).join("")
+    : `<p>لا توجد نتائج بعد. العب لتظهر نتائجك هنا.</p>`;
+  return `<section class="view"><div class="hero"><h2>نتائجي</h2><p>آخر النتائج محفوظة على هذا الجهاز.</p></div><div class="panel">${rows}</div><div style="text-align:center"><button class="btn alt" id="clearRes">مسح النتائج</button></div></section>`;
+}
+function bindResults() {
+  const b = document.getElementById("clearRes");
+  if (!b) return;
+  b.onclick = () => { try { localStorage.removeItem(STORE_KEY); } catch (e) {} document.getElementById("app").innerHTML = resultsPage(); bindResults(); };
+}
+
+function confetti() {
+  const colors = ["#c9a24a", "#7a1f2b", "#8a9a3b", "#f1dfae"];
+  for (let n = 0; n < 140; n++) {
+    const c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.background = colors[n % colors.length];
+    c.style.animationDuration = (2 + Math.random() * 2) + "s";
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 4200);
+  }
+}
+function chooseRulePage(gameId) {
+  const rules = [
+    { id: "wasat", title: "الهمزة المتوسطة", glyph: "ئ ؤ أ" },
+    { id: "wasat-special", title: "الحالات الخاصة", glyph: "ء ئ" },
+    { id: "tanween", title: "تنوين النصب", glyph: "ئًا ءًا" },
+    { id: "qat-wasl", title: "همزة القطع والوصل", glyph: "أ ا" },
+    { id: "awwal", title: "الهمزة في أول الكلمة", glyph: "أ إ آ" },
+    { id: "akhir", title: "الهمزة في آخر الكلمة", glyph: "ء ئ ؤ" }
+  ];
+
+  return `
+    <section class="view">
+      <div class="hero">
+        <h2>اختر القاعدة</h2>
+        <p>حدد موضوع الهمزة الذي تريد التدرب عليه</p>
+      </div>
+
+      <div class="panel">
+        <div class="cards">
+          <a class="rule-card" href="#${gameId}?rule=all">
+            <div class="glyph">🎯</div>
+            <h3>كل القواعد</h3>
+            <p>تدرب على جميع موضوعات الهمزة</p>
+          </a>
+
+          ${rules.map(r => `
+            <a class="rule-card" href="#${gameId}?rule=${r.id}">
+              <div class="glyph">${r.glyph}</div>
+              <h3>${r.title}</h3>
+              <p>ابدأ التدريب على هذه القاعدة</p>
+            </a>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="pager">
+        <a class="btn alt" href="#games">العودة إلى الألعاب</a>
+      </div>
+    </section>
+  `;
+}
+
+function route() {
+  
+
+  if (rcTimer) {
+    clearInterval(rcTimer);
+    rcTimer = null;
+  }
+
+  const hash = location.hash.slice(1) || "home";
+  const [h, queryString = ""] = hash.split("?");
+  const params = new URLSearchParams(queryString);
+
+  selectedRuleId = h.startsWith("choose-game-")
+  ? "all"
+  : params.get("rule") || "all";
+  const app = document.getElementById("app");
+  const rule = RULES.find(r => r.id === h);
+
+  let after = null;
+  let html;
+
+  if (h.startsWith("choose-game-")) {
+    const gameId = h.replace("choose-game-", "");
+    const validGames = [
+      "game", "truefalse", "classify", "race",
+      "order", "para", "fix", "drag"
+    ];
+
+    html = validGames.includes(gameId)
+      ? chooseRulePage(gameId)
+      : home();
+  }
+
+  else if (h === "rules") html = rulesIndex();
+
+  else if (h === "game") {
+    html = gamePage();
+    after = () => {
+      game = null;
+      drawGame();
+    };
+  }
+
+  else if (h === "games") html = gamesHub();
+
+  else if (h === "para") {
+    html = paraPage();
+    after = () => {
+      pa = null;
+      drawPara();
+    };
+  }
+
+  else if (h === "order") {
+    html = orderPage();
+    after = () => {
+      og = null;
+      drawOrder();
+    };
+  }
+
+  else if (h === "truefalse") {
+    html = tfPage();
+    after = () => {
+      tf = null;
+      drawTF();
+    };
+  }
+
+  else if (h === "classify") {
+    html = clPage();
+    after = () => {
+      cl = null;
+      drawCL();
+    };
+  }
+
+  else if (h === "race") {
+    html = rcPage();
+    after = startRC;
+  }
+
+  else if (h === "results") {
+    html = resultsPage();
+    after = bindResults;
+  }
+
+  else if (h === "about") html = aboutPage();
+
+  else if (h === "fix") {
+    html = fixPage();
+    after = () => {
+      fx = null;
+      drawFix();
+    };
+  }
+
+  else if (h === "drag") {
+    html = dragPage();
+    after = () => {
+      dg = null;
+      drawDrag();
+    };
+  }
+
+  else if (rule) {
+    html = rulePage(rule);
+    after = () => mountMini(rule);
+  }
+
+  else html = home();
+
+  app.innerHTML = html;
+  renderDev();
+  if (after) after();
+
+  const section =
+    h === "about" ? "about" :
+    h === "rules" || rule ? "rules" :
+    [
+      "game", "games", "fix", "drag", "para",
+      "order", "truefalse", "classify", "race",
+      "results"
+    ].includes(h) || h.startsWith("choose-game-")
+      ? "game"
+      : "home";
+
+  document.querySelectorAll("nav.top a").forEach(a =>
+    a.classList.toggle("active", a.dataset.nav === section)
+  );
+
+  window.scrollTo({ top: 0, behavior: "instant" });
+}
+
+
+(function () {
+  const box = document.getElementById("leaves");
+  for (let n = 0; n < 14; n++) {
+    const l = document.createElement("div");
+    l.className = "leaf";
+    l.style.left = Math.random() * 100 + "%";
+    l.style.animationDuration = (14 + Math.random() * 14) + "s";
+    l.style.animationDelay = (-Math.random() * 20) + "s";
+    l.style.transform = `scale(${0.6 + Math.random() * 0.9})`;
+    box.appendChild(l);
+  }
+})();
+
+
+window.addEventListener("hashchange", route);
+route();
+// ---------- حفظ الأخطاء (على هذا الجهاز) ----------
+const MISS_KEY = "dawha-mistakes";
+function getMistakes() { try { return JSON.parse(localStorage.getItem(MISS_KEY) || "[]"); } catch (e) { return []; } }
+function setMistakes(m) { try { localStorage.setItem(MISS_KEY, JSON.stringify(m.slice(0, 60))); } catch (e) {} }
+function recordMistake(w, p) {
+  if (!ALL.some(x => x.w === w && x.p === p)) return;
+  const m = getMistakes();
+  if (!m.some(x => x.w === w && x.p === p)) { m.unshift({ w, p }); setMistakes(m); }
+}
+function clearMistake(w, p) { setMistakes(getMistakes().filter(x => !(x.w === w && x.p === p))); }
+renderDev();
+</script>
+
+   <script src="mistakes.js"></script>
+</body>
+</html>
